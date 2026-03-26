@@ -67,9 +67,13 @@ async function runPredict() {
       document.getElementById('pct-' + c).textContent = pct + '%';
     });
 
-    // Jump
+    // Age & Gender Adjusted Benchmark
+    let baseJump = 260 - (inputs.age - 20) * 1.5;
+    if (inputs.gender === 'F') baseJump -= 45;
+    const benchMsg = `Age/Gender Benchmark (A-tier): ~${Math.max(100, Math.round(baseJump))} cm`;
+    
     document.getElementById('jump-pred').innerHTML = jumpEst + ' <span class="unit">cm</span>';
-    document.getElementById('jump-bench').textContent = JUMP_BENCHMARKS[cls];
+    document.getElementById('jump-bench').textContent = benchMsg;
 
     // Radar mapping for chart (requires original names)
     const radarInputs = {
@@ -82,11 +86,32 @@ async function runPredict() {
     };
     drawRadar(radarInputs, cls);
 
-    // Tips
-    const tips = CLASS_TIPS[cls];
-    document.getElementById('tips-list').innerHTML = tips.map(t =>
+    // Intelligent Tips Engine based on weakest features
+    const normalize = v => Math.max(0, Math.min(1, v));
+    const featureScores = [
+      { name: 'Flexibility', val: normalize((inputs.sit_and_bend_forward_cm + 25) / 225), tip: 'Add daily flexibility work to improve sit-and-bend distance.' },
+      { name: 'Core', val: normalize(inputs.sit_ups_counts / 80), tip: 'Increase sit-up volume by 15% to strengthen core.' },
+      { name: 'Explosive Power', val: normalize((inputs.broad_jump_cm - 50) / 250), tip: 'Incorporate explosive plyometric exercises.' },
+      { name: 'Grip Strength', val: normalize(inputs.gripForce / 70), tip: 'Prioritize grip strength training (farmer walks, hangs).' },
+      { name: 'Body Composition', val: normalize(1 - (inputs.body_fat_pct - 3) / 62), tip: 'Reduce body fat through nutrition and cardio conditioning.' },
+      { name: 'Cardio Efficiency', val: normalize(1 - Math.abs((inputs.systolic - 115) / 85)), tip: 'Improve blood pressure via steady-state endurance training.' }
+    ];
+    
+    featureScores.sort((a,b) => a.val - b.val);
+    const dynamicTips = [
+      { icon: '🎯', text: `Focus area (${featureScores[0].name.toUpperCase()}): ${featureScores[0].tip}` },
+      { icon: '📈', text: `Secondary target (${featureScores[1].name.toUpperCase()}): ${featureScores[1].tip}` },
+      { icon: '💡', text: typeof CLASS_TIPS !== 'undefined' ? CLASS_TIPS[cls][0].text : 'Keep pushing forward to reach the next tier.' }
+    ];
+
+    document.getElementById('tips-list').innerHTML = dynamicTips.map(t =>
       `<div class="tip-item"><span class="tip-icon">${t.icon}</span><span>${t.text}</span></div>`
     ).join('');
+
+    // Save to History (LocalStorage)
+    if(typeof saveToHistory === 'function') {
+      saveToHistory(inputs, cls, probs, jumpEst);
+    }
 
     btn.innerHTML = '✓ ANALYSIS COMPLETE';
     btn.style.background = 'linear-gradient(135deg, var(--green), #009948)';

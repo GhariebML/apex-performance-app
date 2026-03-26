@@ -14,6 +14,19 @@ function showPage(id, btn) {
 function updateVal(id, val) {
   document.getElementById(id + '-val').textContent = val;
   updateSliderGradient(id);
+
+  if(id === 'height' || id === 'weight') {
+    const w = +document.getElementById('weight').value;
+    const h = +document.getElementById('height').value;
+    if(typeof calcBMI === 'function') {
+      const res = calcBMI(w, h);
+      const badge = document.getElementById('bmi-display');
+      if(badge) {
+        badge.textContent = `BMI: ${res.bmi} (${res.status})`;
+        badge.className = `bmi-badge ${res.status}`;
+      }
+    }
+  }
 }
 
 function updateSliderGradient(id) {

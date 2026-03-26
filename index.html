@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="css/plan.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/team.css">
+  <link rel="stylesheet" href="css/history.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
@@ -45,6 +46,7 @@
     <button class="nav-tab" id="tab-about" onclick="showPage('about',this)">📋 Dataset</button>
     <button class="nav-tab" id="tab-plan" onclick="showPage('plan',this)">🗺️ App Plan</button>
     <button class="nav-tab" id="tab-team" onclick="showPage('team',this)">👥 Snipers</button>
+    <button class="nav-tab" id="tab-history" onclick="openHistoryModal()" style="border-color:var(--gold);color:var(--gold)">📈 History</button>
     <a href="https://colab.research.google.com/" target="_blank" class="nav-tab" id="tab-colab" style="text-decoration:none; color:var(--teal); border-color:var(--teal);">🔬 Live Colab ↗</a>
   </div>
   <div class="nav-badge">
@@ -141,6 +143,7 @@
                 </div>
               </div>
             </div>
+            <div id="bmi-display" class="bmi-badge Normal">BMI: 24.2 (Normal)</div>
           </div>
 
           <!-- CARDIOVASCULAR -->
@@ -644,10 +647,46 @@
 
 </div>
 
+<!-- Modal for History -->
+<div class="history-modal" id="history-modal">
+  <div class="history-dialog">
+    <div class="history-header">
+      <h3>History &amp; Compare</h3>
+      <button class="close-btn" onclick="closeHistoryModal()">×</button>
+    </div>
+    <div class="history-body">
+      <!-- List View -->
+      <div id="history-list-view">
+        <div class="history-list" id="hi-list-container"></div>
+        <button class="compare-action-btn" id="btn-compare" disabled onclick="showComparison()">Select 2 runs to compare</button>
+        <div class="trend-container">
+          <div class="trend-title">Broad Jump Progression</div>
+          <canvas id="trend-canv" width="400" height="80" style="width:100%; max-width:400px; margin:0 auto;"></canvas>
+        </div>
+      </div>
+      <!-- Compare View -->
+      <div id="compare-view" class="compare-view">
+        <button class="compare-action-btn" onclick="backToHistory()" style="margin-top:0;">← Back to List</button>
+        <div class="compare-grid">
+          <div class="compare-col">
+            <div class="cc-header" id="col1-date">Run 1</div>
+            <div id="col1-stats"></div>
+          </div>
+          <div class="compare-col">
+            <div class="cc-header" id="col2-date">Run 2</div>
+            <div id="col2-stats"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
-<!-- Scripts (order matters: predict → radar → ui → app) -->
+<!-- Scripts (order matters) -->
+<script src="js/history.js"></script>
 <script src="js/predict.js"></script>
 <script src="js/radar.js"></script>
 <script src="js/ui.js"></script>
