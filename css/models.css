@@ -1,0 +1,220 @@
+/* ══════════════════════════════════════════════════════════════════════════════
+   APEX · Model Leaderboard & Feature Importance
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+/* ── Leaderboard ─────────────────────────────────────────────────────────────── */
+.leaderboard {
+  background: var(--panel);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.leaderboard-header {
+  padding: 12px 18px;
+  background: var(--panel2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--text2);
+  text-transform: uppercase;
+  gap: 10px;
+}
+
+.lb-row {
+  display: grid;
+  grid-template-columns: 36px 1fr 80px 80px 80px 80px;
+  gap: 8px;
+  align-items: center;
+  padding: 11px 18px;
+  border-bottom: 1px solid var(--border);
+  transition: background var(--trans);
+}
+.lb-row:last-child { border-bottom: none; }
+.lb-row:hover { background: var(--bg3); }
+.lb-row.top { background: rgba(0,229,200,0.04); }
+
+.lb-rank {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text3);
+}
+.lb-rank.gold { color: var(--gold); font-weight: 700; }
+
+.lb-model {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--white);
+  font-weight: 500;
+}
+
+.lb-metric {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text2);
+  text-align: right;
+}
+.lb-header {
+  font-size: 10px;
+  color: var(--text3);
+  text-align: right;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.lb-bar-col {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.lb-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--bg3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.lb-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal), var(--teal2));
+  border-radius: 3px;
+  transition: width 1s var(--spring);
+}
+.lb-bar-fill.rf  { background: linear-gradient(90deg, var(--teal), #00b8a0); }
+.lb-bar-fill.nn  { background: linear-gradient(90deg, var(--blue), #2d7fd6); }
+.lb-bar-fill.svm { background: linear-gradient(90deg, var(--gold), #c8860a); }
+.lb-bar-fill.lr  { background: linear-gradient(90deg, #a061f0, #7a40c8); }
+.lb-bar-fill.knn { background: linear-gradient(90deg, var(--red), #c82040); }
+
+/* ── Feature Importance ──────────────────────────────────────────────────────── */
+.feat-imp {
+  background: var(--panel);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 18px;
+  transition: border-color var(--trans);
+}
+.feat-imp:hover { border-color: var(--border2); }
+
+.feat-imp h3 {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--white);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.feat-imp h3 .badge {
+  font-size: 10px;
+  color: var(--teal2);
+  background: var(--teal-dim);
+  border: 1px solid rgba(0,229,200,0.2);
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+}
+
+.feat-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  padding: 3px 0;
+  transition: background var(--trans);
+  border-radius: 4px;
+}
+.feat-row:hover {
+  background: rgba(0,229,200,0.03);
+}
+
+.feat-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text2);
+  width: 190px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.feat-track {
+  flex: 1;
+  height: 8px;
+  background: var(--bg3);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.feat-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--teal), #00b8a0);
+  transition: width 1.2s cubic-bezier(0.34,1.2,0.64,1);
+}
+.feat-score {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--teal);
+  min-width: 40px;
+  text-align: right;
+}
+
+/* ── Regression Cards Grid ───────────────────────────────────────────────────── */
+.regression-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.regression-card {
+  background: var(--panel);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 18px;
+  overflow: hidden;
+  transition: all var(--trans);
+}
+.regression-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.regression-card .reg-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+.regression-card .reg-score {
+  font-family: var(--font-head);
+  font-size: 36px;
+  font-weight: 700;
+}
+.regression-card .reg-info {
+  font-size: 12px;
+  color: var(--text2);
+  margin-top: 4px;
+}
+.regression-card .reg-detail {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 6px;
+}
+
+/* ── Feature Importance Grid ─────────────────────────────────────────────────── */
+.feat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}

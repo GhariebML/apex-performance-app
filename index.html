@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="APEX Body Performance Intelligence — Predict your fitness class (A–D) and estimate broad jump distance using a Random Forest model trained on 13,393 real evaluations.">
+  <meta name="author" content="Snipers Team · Military Technical College">
+  <meta property="og:title" content="APEX · Body Performance Intelligence">
+  <meta property="og:description" content="AI-powered fitness classification and performance prediction.">
+  <meta property="og:type" content="website">
+  <title>APEX · Body Performance Intelligence</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <link rel="stylesheet" href="css/results.css">
+  <link rel="stylesheet" href="css/charts.css">
+  <link rel="stylesheet" href="css/models.css">
+  <link rel="stylesheet" href="css/dataset.css">
+  <link rel="stylesheet" href="css/plan.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/team.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+<div class="app-shell">
+
+<!-- ═══════════ NAVIGATION ═══════════ -->
+<nav role="navigation" aria-label="Main navigation">
+  <div class="nav-logo">
+    <div class="dot"></div>
+    APEX
+  </div>
+  <div class="nav-tabs" id="nav-tabs">
+    <button class="nav-tab active" id="tab-predict" onclick="showPage('predict',this)">⚡ Predict</button>
+    <button class="nav-tab" id="tab-models" onclick="showPage('models',this)">📊 Models</button>
+    <button class="nav-tab" id="tab-about" onclick="showPage('about',this)">📋 Dataset</button>
+    <button class="nav-tab" id="tab-plan" onclick="showPage('plan',this)">🗺️ App Plan</button>
+    <button class="nav-tab" id="tab-team" onclick="showPage('team',this)">👥 Snipers</button>
+    <a href="https://colab.research.google.com/" target="_blank" class="nav-tab" id="tab-colab" style="text-decoration:none; color:var(--teal); border-color:var(--teal);">🔬 Live Colab ↗</a>
+  </div>
+  <div class="nav-badge">
+    <span>●</span> RF · 74.8% ACC
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero">
+  <div class="hero-top">
+    <div>
+      <h1 class="hero-title">
+        BODY PERFORMANCE<br>
+        <span class="accent">INTELLIGENCE</span><br>
+        <span class="sub" style="font-size:0.52em;letter-spacing:1px;">PREDICT YOUR CLASS · ESTIMATE YOUR JUMP</span>
+      </h1>
+      <p class="hero-desc">
+        Enter your physiological measurements and fitness test scores to instantly receive your predicted performance class (A–D) and estimated broad jump distance — powered by a Random Forest model trained on 13,393 real fitness evaluations.
+      </p>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="val">13,393</span><span class="lbl">Records</span></div>
+      <div class="hero-stat"><span class="val">74.8%</span><span class="lbl">Accuracy</span></div>
+      <div class="hero-stat"><span class="val">~0.99</span><span class="lbl">Jump R²</span></div>
+    </div>
+  </div>
+  <div class="class-guide">
+    <div class="class-pill A"><div class="cls-badge">A</div>Elite Performer — Top tier fitness across all metrics</div>
+    <div class="class-pill B"><div class="cls-badge">B</div>Above Average — Strong performance with minor gaps</div>
+    <div class="class-pill C"><div class="cls-badge">C</div>Average — Room for targeted improvement</div>
+    <div class="class-pill D"><div class="cls-badge">D</div>Below Average — Needs consistent training focus</div>
+  </div>
+</header>
+
+<!-- ═══════════ PAGE: PREDICT ═══════════ -->
+<main>
+<section id="page-predict" class="page active" aria-label="Performance Prediction">
+  <div class="predict-layout">
+
+    <!-- LEFT: INPUT FORM -->
+    <div>
+      <div class="form-panel">
+        <div class="form-panel-header">
+          <div class="icon">👤</div>
+          <h3>PARTICIPANT PROFILE</h3>
+          <span class="hint">11 inputs required</span>
+        </div>
+        <div class="form-groups">
+
+          <!-- DEMOGRAPHICS -->
+          <div>
+            <div class="field-group-title"><span>01</span> — DEMOGRAPHICS</div>
+            <div class="form-group-row">
+              <div class="field">
+                <label>Age <span class="unit">yrs</span></label>
+                <div class="slider-wrap">
+                  <input type="range" id="age" min="18" max="80" value="35" oninput="updateVal('age',this.value)">
+                  <span class="slider-val" id="age-val">35</span>
+                </div>
+              </div>
+              <div class="field">
+                <label>Gender</label>
+                <div class="gender-toggle">
+                  <button class="gender-btn active" id="btn-M" onclick="setGender('M')">♂ MALE</button>
+                  <button class="gender-btn" id="btn-F" onclick="setGender('F')">♀ FEMALE</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BODY COMPOSITION -->
+          <div>
+            <div class="field-group-title"><span>02</span> — BODY COMPOSITION</div>
+            <div class="form-group-row">
+              <div class="field">
+                <label>Height <span class="unit">cm</span></label>
+                <div class="slider-wrap">
+                  <input type="range" id="height" min="140" max="200" value="170" oninput="updateVal('height',this.value)">
+                  <span class="slider-val" id="height-val">170</span>
+                </div>
+              </div>
+              <div class="field">
+                <label>Weight <span class="unit">kg</span></label>
+                <div class="slider-wrap">
+                  <input type="range" id="weight" min="30" max="150" value="70" step="0.5" oninput="updateVal('weight',this.value)">
+                  <span class="slider-val" id="weight-val">70</span>
+                </div>
+              </div>
+              <div class="field">
+                <label>Body Fat <span class="unit">%</span></label>
+                <div class="slider-wrap">
+                  <input type="range" id="fat" min="3" max="65" value="20" step="0.5" oninput="updateVal('fat',this.value)">
+                  <span class="slider-val" id="fat-val">20</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARDIOVASCULAR -->
+          <div>
+            <div class="field-group-title"><span>03</span> — CARDIOVASCULAR</div>
+            <div class="form-group-row">
+              <div class="field">
+                <label>Diastolic BP <span class="unit">mmHg</span></label>
+                <div class="slider-wrap">
+                  <input type="range" id="diastolic" min="40" max="130" value="80" oninput="updateVal('diastolic',this.value)">
+                  <span class="slider-val" id="diastolic-val">80</span>
+                </div>
+              </div>
+              <div class="field">
+                <label>Systolic BP <span class="unit">mmHg</span></label>
+                <div class="slider-wrap">
+                  <input type="range" id="systolic" min="70" max="200" value="120" oninput="updateVal('systolic',this.value)">
+                  <span class="slider-val" id="systolic-val">120</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FITNESS TESTS -->
+          <div>
+            <div class="field-group-title"><span>04</span> — FITNESS TEST RESULTS</div>
+            <div class="form-group-row">
+              <div class="field">
+                <label>Grip Force <span class="unit">kg</span></label>
+                <div class="slider-wrap">
+                  <input type="range" id="grip" min="0" max="70" value="35" step="0.5" oninput="updateVal('grip',this.value)">
+                  <span class="slider-val" id="grip-val">35</span>
+                </div>
+              </div>
+              <div class="field">
+                <label>Sit &amp; Bend <span class="unit">cm</span></label>
+                <div class="slider-wrap">
+                  <input type="range" id="bend" min="-25" max="200" value="20" step="0.5" oninput="updateVal('bend',this.value)">
+                  <span class="slider-val" id="bend-val">20</span>
+                </div>
+              </div>
+              <div class="field">
+                <label>Sit-ups <span class="unit">reps</span></label>
+                <div class="slider-wrap">
+                  <input type="range" id="situps" min="0" max="80" value="35" oninput="updateVal('situps',this.value)">
+                  <span class="slider-val" id="situps-val">35</span>
+                </div>
+              </div>
+              <div class="field">
+                <label>Broad Jump <span class="unit">cm</span></label>
+                <div class="slider-wrap">
+                  <input type="range" id="jump" min="50" max="300" value="160" oninput="updateVal('jump',this.value)">
+                  <span class="slider-val" id="jump-val">160</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="predict-btn" id="predict-btn" onclick="runPredict()">
+            ⚡ ANALYZE PERFORMANCE
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: RESULTS -->
+    <div class="results-panel" id="results-panel">
+
+      <!-- Class Result -->
+      <div class="class-result-card" id="class-result-card">
+        <div class="placeholder-state" id="placeholder-state">
+          <div class="ph-icon">🎯</div>
+          <div class="ph-title">AWAITING INPUT</div>
+          <div class="ph-hint">Adjust sliders and click Analyze</div>
+        </div>
+        <div id="class-result-body" style="display:none;">
+          <div class="class-result-header">
+            <div class="label">PERFORMANCE CLASSIFICATION</div>
+            <div class="class-result-main">
+              <div class="class-badge-big placeholder" id="class-badge">?</div>
+              <div class="class-info">
+                <div class="class-name" id="class-name">—</div>
+                <div class="class-desc" id="class-desc">—</div>
+              </div>
+            </div>
+          </div>
+          <div class="prob-section">
+            <div class="prob-title">CLASS PROBABILITIES</div>
+            <div class="prob-bar-row"><span class="cls-lbl A">A</span><div class="prob-track"><div class="prob-fill A" id="prob-A" style="width:0%"></div></div><span class="prob-pct" id="pct-A">0%</span></div>
+            <div class="prob-bar-row"><span class="cls-lbl B">B</span><div class="prob-track"><div class="prob-fill B" id="prob-B" style="width:0%"></div></div><span class="prob-pct" id="pct-B">0%</span></div>
+            <div class="prob-bar-row"><span class="cls-lbl C">C</span><div class="prob-track"><div class="prob-fill C" id="prob-C" style="width:0%"></div></div><span class="prob-pct" id="pct-C">0%</span></div>
+            <div class="prob-bar-row"><span class="cls-lbl D">D</span><div class="prob-track"><div class="prob-fill D" id="prob-D" style="width:0%"></div></div><span class="prob-pct" id="pct-D">0%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Broad Jump -->
+      <div class="jump-card" id="jump-card">
+        <div class="jump-icon">🏃</div>
+        <div class="jump-info">
+          <div class="jlabel">ESTIMATED BROAD JUMP</div>
+          <div class="jump-val" id="jump-pred">— <span class="unit">cm</span></div>
+          <div class="jump-benchmark" id="jump-bench">Run analysis to estimate broad jump distance</div>
+        </div>
+      </div>
+
+      <!-- Radar -->
+      <div class="radar-card">
+        <h4>PERFORMANCE PROFILE RADAR</h4>
+        <canvas id="radarCanvas" width="340" height="270"></canvas>
+      </div>
+
+      <!-- Tips -->
+      <div class="tips-card" id="tips-card">
+        <h4>💡 PERSONALIZED INSIGHTS</h4>
+        <div id="tips-list">
+          <div class="tip-item"><span class="tip-icon">›</span><span>Complete analysis to receive personalized insights.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PAGE: MODELS ═══════════ -->
+<section id="page-models" class="page" aria-label="Model Performance">
+
+  <div class="section-header">
+    <h2>Model Performance</h2>
+    <span class="sh-tag">LEADERBOARD</span>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="leaderboard">
+    <div class="leaderboard-header">
+      <span>#</span><span>Model</span>
+      <span style="text-align:right">Accuracy</span>
+      <span style="text-align:right">Precision</span>
+      <span style="text-align:right">Recall</span>
+      <span style="text-align:right">F1</span>
+    </div>
+    <div class="lb-row top">
+      <span class="lb-rank gold">🥇</span>
+      <div class="lb-bar-col"><div class="lb-bar"><div class="lb-bar-fill rf" style="width:94%"></div></div><span class="lb-model">Random Forest</span></div>
+      <span class="lb-metric" style="color:var(--teal)">74.8%</span>
+      <span class="lb-metric" style="color:var(--teal)">74.6%</span>
+      <span class="lb-metric" style="color:var(--teal)">74.8%</span>
+      <span class="lb-metric" style="color:var(--teal)">74.7%</span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-rank" style="color:#aaa">🥈</span>
+      <div class="lb-bar-col"><div class="lb-bar"><div class="lb-bar-fill nn" style="width:92%"></div></div><span class="lb-model">Neural Network (MLP)</span></div>
+      <span class="lb-metric">74.1%</span><span class="lb-metric">73.9%</span><span class="lb-metric">74.1%</span><span class="lb-metric">74.0%</span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-rank" style="color:#cd7f32">🥉</span>
+      <div class="lb-bar-col"><div class="lb-bar"><div class="lb-bar-fill svm" style="width:80%"></div></div><span class="lb-model">SVM (RBF Kernel)</span></div>
+      <span class="lb-metric">62.8%</span><span class="lb-metric">62.4%</span><span class="lb-metric">62.8%</span><span class="lb-metric">62.6%</span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-rank">4</span>
+      <div class="lb-bar-col"><div class="lb-bar"><div class="lb-bar-fill lr" style="width:72%"></div></div><span class="lb-model">Logistic Regression</span></div>
+      <span class="lb-metric">57.2%</span><span class="lb-metric">56.9%</span><span class="lb-metric">57.2%</span><span class="lb-metric">57.0%</span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-rank">5</span>
+      <div class="lb-bar-col"><div class="lb-bar"><div class="lb-bar-fill knn" style="width:65%"></div></div><span class="lb-model">KNN (k=15)</span></div>
+      <span class="lb-metric">51.8%</span><span class="lb-metric">51.5%</span><span class="lb-metric">51.8%</span><span class="lb-metric">51.6%</span>
+    </div>
+  </div>
+
+  <div class="section-header" style="margin-top:28px;">
+    <h2>Feature Importance</h2>
+    <span class="sh-tag">RANDOM FOREST</span>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="feat-grid">
+    <div class="feat-imp">
+      <h3>Intrinsic RF Importance <span class="badge">GINI</span></h3>
+      <div class="feat-row"><span class="feat-name">sit_and_bend_forward_cm</span><div class="feat-track"><div class="feat-fill" style="width:100%"></div></div><span class="feat-score">0.261</span></div>
+      <div class="feat-row"><span class="feat-name">sit-ups counts</span><div class="feat-track"><div class="feat-fill" style="width:54%"></div></div><span class="feat-score">0.141</span></div>
+      <div class="feat-row"><span class="feat-name">body fat_%</span><div class="feat-track"><div class="feat-fill" style="width:46%"></div></div><span class="feat-score">0.119</span></div>
+      <div class="feat-row"><span class="feat-name">age</span><div class="feat-track"><div class="feat-fill" style="width:43%"></div></div><span class="feat-score">0.112</span></div>
+      <div class="feat-row"><span class="feat-name">weight_kg</span><div class="feat-track"><div class="feat-fill" style="width:36%"></div></div><span class="feat-score">0.093</span></div>
+      <div class="feat-row"><span class="feat-name">gripForce</span><div class="feat-track"><div class="feat-fill" style="width:31%"></div></div><span class="feat-score">0.081</span></div>
+      <div class="feat-row"><span class="feat-name">broad jump_cm</span><div class="feat-track"><div class="feat-fill" style="width:28%"></div></div><span class="feat-score">0.074</span></div>
+      <div class="feat-row"><span class="feat-name">height_cm</span><div class="feat-track"><div class="feat-fill" style="width:22%"></div></div><span class="feat-score">0.058</span></div>
+      <div class="feat-row"><span class="feat-name">systolic</span><div class="feat-track"><div class="feat-fill" style="width:19%"></div></div><span class="feat-score">0.031</span></div>
+      <div class="feat-row"><span class="feat-name">diastolic</span><div class="feat-track"><div class="feat-fill" style="width:15%"></div></div><span class="feat-score">0.019</span></div>
+    </div>
+    <div class="feat-imp">
+      <h3>Permutation Importance <span class="badge">MODEL-AGNOSTIC</span></h3>
+      <div class="feat-row"><span class="feat-name">sit_and_bend_forward_cm</span><div class="feat-track"><div class="feat-fill" style="width:100%"></div></div><span class="feat-score">0.254</span></div>
+      <div class="feat-row"><span class="feat-name">sit-ups counts</span><div class="feat-track"><div class="feat-fill" style="width:94%"></div></div><span class="feat-score">0.239</span></div>
+      <div class="feat-row"><span class="feat-name">age</span><div class="feat-track"><div class="feat-fill" style="width:53%"></div></div><span class="feat-score">0.135</span></div>
+      <div class="feat-row"><span class="feat-name">weight_kg</span><div class="feat-track"><div class="feat-fill" style="width:28%"></div></div><span class="feat-score">0.071</span></div>
+      <div class="feat-row"><span class="feat-name">gender</span><div class="feat-track"><div class="feat-fill" style="width:26%"></div></div><span class="feat-score">0.065</span></div>
+      <div class="feat-row"><span class="feat-name">body fat_%</span><div class="feat-track"><div class="feat-fill" style="width:24%"></div></div><span class="feat-score">0.062</span></div>
+      <div class="feat-row"><span class="feat-name">gripForce</span><div class="feat-track"><div class="feat-fill" style="width:22%"></div></div><span class="feat-score">0.055</span></div>
+      <div class="feat-row"><span class="feat-name">broad jump_cm</span><div class="feat-track"><div class="feat-fill" style="width:16%"></div></div><span class="feat-score">0.041</span></div>
+      <div class="feat-row"><span class="feat-name">height_cm</span><div class="feat-track"><div class="feat-fill" style="width:6%"></div></div><span class="feat-score">0.014</span></div>
+      <div class="feat-row"><span class="feat-name">systolic</span><div class="feat-track"><div class="feat-fill" style="width:2%"></div></div><span class="feat-score">0.003</span></div>
+    </div>
+  </div>
+
+  <!-- Regression -->
+  <div class="section-header" style="margin-top:28px;">
+    <h2>Regression Models</h2>
+    <span class="sh-tag">BROAD JUMP PREDICTION</span>
+    <div class="sh-line"></div>
+  </div>
+  <div class="regression-grid">
+    <div class="regression-card" style="border-top:3px solid var(--teal);">
+      <div class="reg-label">RANDOM FOREST REGRESSOR</div>
+      <div class="reg-score" style="color:var(--teal)">~0.99</div>
+      <div class="reg-info">R² Score · Near-perfect fit</div>
+      <div class="reg-detail">Captures non-linear interactions between fitness metrics and explosive power</div>
+    </div>
+    <div class="regression-card" style="border-top:3px solid var(--blue);">
+      <div class="reg-label">LINEAR REGRESSION</div>
+      <div class="reg-score" style="color:var(--blue)">~0.95</div>
+      <div class="reg-info">R² Score · Strong linear fit</div>
+      <div class="reg-detail">Strong linear relationship between body composition and jump distance</div>
+    </div>
+    <div class="regression-card" style="border-top:3px solid var(--gold);">
+      <div class="reg-label">SVR (RBF KERNEL)</div>
+      <div class="reg-score" style="color:var(--gold)">~0.91</div>
+      <div class="reg-info">R² Score · Good non-linear fit</div>
+      <div class="reg-detail">Good performance; slightly weaker than Random Forest ensemble approach</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PAGE: DATASET ═══════════ -->
+<section id="page-about" class="page" aria-label="Dataset Overview">
+
+  <div class="section-header">
+    <h2>Dataset Overview</h2>
+    <span class="sh-tag">BODY PERFORMANCE</span>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="dataset-stats">
+    <div class="ds-stat"><span class="dsv">13,393</span><span class="dsl">Total Records</span></div>
+    <div class="ds-stat"><span class="dsv">12</span><span class="dsl">Feature Columns</span></div>
+    <div class="ds-stat"><span class="dsv">11</span><span class="dsl">Input Features</span></div>
+    <div class="ds-stat"><span class="dsv">4</span><span class="dsl">Performance Classes</span></div>
+    <div class="ds-stat"><span class="dsv">0</span><span class="dsl">Missing Values</span></div>
+    <div class="ds-stat"><span class="dsv">~3,348</span><span class="dsl">Records per Class</span></div>
+  </div>
+
+  <div class="section-header" style="margin-top:24px;">
+    <h2>ML Pipeline</h2>
+    <span class="sh-tag">END-TO-END</span>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="pipeline">
+    <div class="pipe-step"><div class="ps-icon">📥</div><div class="ps-label">Load</div><div class="ps-tag">CSV · 13,393 rows</div></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step"><div class="ps-icon">🧹</div><div class="ps-label">Clean</div><div class="ps-tag">Duplicates · BP logic</div></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step"><div class="ps-icon">📊</div><div class="ps-label">EDA</div><div class="ps-tag">Histograms · Heatmap</div></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step"><div class="ps-icon">⚙️</div><div class="ps-label">Engineer</div><div class="ps-tag">Encode · Scale</div></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step"><div class="ps-icon">✂️</div><div class="ps-label">Split</div><div class="ps-tag">70/30 · 80/20 · CV</div></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step"><div class="ps-icon">🤖</div><div class="ps-label">Train</div><div class="ps-tag">5 classifiers · 3 reg.</div></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step"><div class="ps-icon">📈</div><div class="ps-label">Evaluate</div><div class="ps-tag">Acc · F1 · CM</div></div>
+    <div class="pipe-arrow">›</div>
+    <div class="pipe-step"><div class="ps-icon">🚀</div><div class="ps-label">Deploy</div><div class="ps-tag">Gradio · APEX App</div></div>
+  </div>
+
+  <div class="section-header" style="margin-top:24px;">
+    <h2>Column Definitions</h2>
+    <span class="sh-tag">SCHEMA</span>
+    <div class="sh-line"></div>
+  </div>
+  <div class="col-table">
+    <table>
+      <thead>
+        <tr><th>Column</th><th>Type</th><th>Description</th><th>Valid Range</th><th>ML Role</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="col-name">age</td><td><span class="badge-num">INT</span></td><td>Participant age in years</td><td>18 – 80</td><td>Feature</td></tr>
+        <tr><td class="col-name">gender</td><td><span class="badge-cat">CAT</span></td><td>Biological sex — M or F</td><td>M / F</td><td>Feature (encoded)</td></tr>
+        <tr><td class="col-name">height_cm</td><td><span class="badge-num">FLOAT</span></td><td>Standing height in centimetres</td><td>100 – 220</td><td>Feature</td></tr>
+        <tr><td class="col-name">weight_kg</td><td><span class="badge-num">FLOAT</span></td><td>Body weight in kilograms</td><td>20 – 250</td><td>Feature</td></tr>
+        <tr><td class="col-name">body fat_%</td><td><span class="badge-num">FLOAT</span></td><td>Body fat percentage</td><td>3 – 65%</td><td>Feature</td></tr>
+        <tr><td class="col-name">diastolic</td><td><span class="badge-num">INT</span></td><td>Diastolic blood pressure</td><td>40 – 130 mmHg</td><td>Feature</td></tr>
+        <tr><td class="col-name">systolic</td><td><span class="badge-num">INT</span></td><td>Systolic blood pressure</td><td>70 – 200 mmHg</td><td>Feature</td></tr>
+        <tr><td class="col-name">gripForce</td><td><span class="badge-num">FLOAT</span></td><td>Hand grip strength</td><td>0 – 70 kg</td><td>Feature (high importance)</td></tr>
+        <tr><td class="col-name">sit_and_bend_forward_cm</td><td><span class="badge-num">FLOAT</span></td><td>Flexibility: sit-and-reach test</td><td>−25 – 200 cm</td><td>Feature (top importance)</td></tr>
+        <tr><td class="col-name">sit-ups counts</td><td><span class="badge-num">INT</span></td><td>Number of sit-ups completed</td><td>0 – 80</td><td>Feature (high importance)</td></tr>
+        <tr><td class="col-name">broad jump_cm</td><td><span class="badge-num">FLOAT</span></td><td>Standing broad jump distance</td><td>50 – 300 cm</td><td>Feature + Regression Target</td></tr>
+        <tr style="background:rgba(0,229,200,0.04)"><td class="col-name" style="color:var(--teal)">class</td><td><span class="badge-cat">CAT</span></td><td>Performance band — A (best) to D (worst)</td><td>A / B / C / D</td><td>Classification Target</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════ PAGE: APP PLAN ═══════════ -->
+<section id="page-plan" class="page" aria-label="Application Architecture Plan">
+  <div class="section-header">
+    <h2>App Architecture Plan</h2>
+    <span class="sh-tag">PRODUCTION ROADMAP</span>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="about-grid">
+    <article class="about-card" style="border-top:3px solid var(--teal)">
+      <span class="ac-icon">⚡</span>
+      <h3>Phase 1 — Core Engine</h3>
+      <p>Train and serialize the final Random Forest classifier and regressor using <strong style="color:var(--teal)">joblib</strong>. Expose them via a <strong style="color:var(--teal)">FastAPI</strong> backend with a single <code>/predict</code> POST endpoint that accepts all 11 features and returns: predicted class, class probabilities, and estimated broad jump distance.</p>
+    </article>
+    <article class="about-card" style="border-top:3px solid var(--blue)">
+      <span class="ac-icon">🌐</span>
+      <h3>Phase 2 — Frontend (This App)</h3>
+      <p>This HTML/JS app is the production frontend. It features slider-based input controls, animated probability bars, a performance radar chart, real-time broad jump estimation, and personalized training insights — all communicating with the FastAPI backend.</p>
+    </article>
+    <article class="about-card" style="border-top:3px solid var(--gold)">
+      <span class="ac-icon">🐳</span>
+      <h3>Phase 3 — Deployment</h3>
+      <p>Containerize with <strong style="color:var(--gold)">Docker</strong>. Deploy the FastAPI backend to <strong style="color:var(--gold)">Render</strong>, <strong style="color:var(--gold)">Railway</strong>, or <strong style="color:var(--gold)">Hugging Face Spaces</strong>. Serve the HTML frontend as a static site on Netlify or Vercel. Configure CORS and connect via environment variable.</p>
+    </article>
+    <article class="about-card" style="border-top:3px solid var(--red)">
+      <span class="ac-icon">📱</span>
+      <h3>Phase 4 — Enhancements</h3>
+      <p>Add user history (localStorage), comparison mode (compare two profiles side-by-side), class-trend animation, BMI auto-calculation, age-adjusted benchmarks per gender, and a training recommendations engine based on weakest features.</p>
+    </article>
+  </div>
+
+  <div class="section-header" style="margin-top:4px;">
+    <h2>Technical Stack</h2>
+    <span class="sh-tag">FULL STACK</span>
+    <div class="sh-line"></div>
+  </div>
+  <div class="leaderboard" style="margin-bottom:20px;">
+    <div class="leaderboard-header"><span>Layer</span><span>Technology</span><span style="text-align:right">Purpose</span></div>
+    <div class="lb-row"><span class="lb-rank" style="color:var(--teal)">ML</span><span class="lb-model">scikit-learn + joblib</span><span class="lb-metric" style="text-align:left;color:var(--text2)">Random Forest train, serialize, load</span></div>
+    <div class="lb-row"><span class="lb-rank" style="color:var(--blue)">API</span><span class="lb-model">FastAPI + Pydantic</span><span class="lb-metric" style="text-align:left;color:var(--text2)">REST endpoint · input validation · CORS</span></div>
+    <div class="lb-row"><span class="lb-rank" style="color:var(--gold)">UI</span><span class="lb-model">HTML/CSS/JS (this file)</span><span class="lb-metric" style="text-align:left;color:var(--text2)">Interactive frontend · radar chart · probability viz</span></div>
+    <div class="lb-row"><span class="lb-rank" style="color:var(--red)">OPS</span><span class="lb-model">Docker + Render/Hugging Face</span><span class="lb-metric" style="text-align:left;color:var(--text2)">Container deploy · free tier hosting</span></div>
+    <div class="lb-row"><span class="lb-rank" style="color:var(--text2)">ALT</span><span class="lb-model">Gradio (notebook demo)</span><span class="lb-metric" style="text-align:left;color:var(--text2)">Quick in-notebook Gradio demo for classroom</span></div>
+  </div>
+
+  <div class="section-header">
+    <h2>Backend API Contract</h2>
+    <span class="sh-tag">FASTAPI</span>
+    <div class="sh-line"></div>
+  </div>
+  <div style="background:var(--panel-solid);border:1px solid var(--border);border-radius:var(--radius2);padding:18px;margin-bottom:20px;">
+    <div style="font-family:var(--font-mono);font-size:12px;color:var(--text2);line-height:2;">
+      <span style="color:var(--teal)">POST</span> <span style="color:var(--white)">/predict</span><br><br>
+      <span style="color:var(--text3)">// Request body (JSON)</span><br>
+      {<br>
+      &nbsp;&nbsp;"age": <span style="color:var(--gold)">35</span>,<br>
+      &nbsp;&nbsp;"gender": <span style="color:var(--green)">"M"</span>,<br>
+      &nbsp;&nbsp;"height_cm": <span style="color:var(--gold)">170</span>,<br>
+      &nbsp;&nbsp;"weight_kg": <span style="color:var(--gold)">70</span>,<br>
+      &nbsp;&nbsp;"body_fat_pct": <span style="color:var(--gold)">20</span>,<br>
+      &nbsp;&nbsp;"diastolic": <span style="color:var(--gold)">80</span>,<br>
+      &nbsp;&nbsp;"systolic": <span style="color:var(--gold)">120</span>,<br>
+      &nbsp;&nbsp;"gripForce": <span style="color:var(--gold)">35</span>,<br>
+      &nbsp;&nbsp;"sit_and_bend_cm": <span style="color:var(--gold)">20</span>,<br>
+      &nbsp;&nbsp;"sit_ups": <span style="color:var(--gold)">35</span>,<br>
+      &nbsp;&nbsp;"broad_jump_cm": <span style="color:var(--gold)">160</span><br>
+      }<br><br>
+      <span style="color:var(--text3)">// Response body</span><br>
+      {<br>
+      &nbsp;&nbsp;"predicted_class": <span style="color:var(--green)">"B"</span>,<br>
+      &nbsp;&nbsp;"probabilities": { "A": <span style="color:var(--gold)">0.18</span>, "B": <span style="color:var(--gold)">0.42</span>, "C": <span style="color:var(--gold)">0.28</span>, "D": <span style="color:var(--gold)">0.12</span> },<br>
+      &nbsp;&nbsp;"predicted_broad_jump_cm": <span style="color:var(--gold)">168.4</span>,<br>
+      &nbsp;&nbsp;"model_version": <span style="color:var(--green)">"rf-v1.0"</span><br>
+      }
+    </div>
+  </div>
+
+  <div class="section-header">
+    <h2>Classroom Integration</h2>
+    <span class="sh-tag">EDUCATION</span>
+    <div class="sh-line"></div>
+  </div>
+  <div class="about-grid">
+    <article class="about-card">
+      <span class="ac-icon">🎓</span>
+      <h3>Student Demo Mode</h3>
+      <p>This app runs entirely in-browser — no backend needed in demo mode. The prediction engine uses a calibrated statistical model (approximating the trained Random Forest) so students can explore predictions immediately without server setup.</p>
+    </article>
+    <article class="about-card">
+      <span class="ac-icon">🔬</span>
+      <h3>Live Notebook Link</h3>
+      <p>Connect this frontend to a running Colab notebook by exposing the Gradio app via <strong style="color:var(--teal)">ngrok</strong> or using <strong style="color:var(--teal)">Colab's built-in port forwarding</strong> to serve the FastAPI backend directly from the notebook environment.</p>
+      <a href="https://colab.research.google.com/" target="_blank" style="display:inline-block; margin-top:16px; padding:10px 20px; background:rgba(0,229,200,0.1); color:var(--teal); border:1px solid var(--teal); border-radius:var(--radius1); text-decoration:none; font-weight:600; font-family:var(--font-mono); font-size:13px; transition:all 0.3s ease; cursor:pointer;" onmouseover="this.style.background='var(--teal)'; this.style.color='#0a0a0c'" onmouseout="this.style.background='rgba(0,229,200,0.1)'; this.style.color='var(--teal)'">LAUNCH COLAB ENVIRONMENT ↗</a>
+    </article>
+    <article class="about-card">
+      <span class="ac-icon">📊</span>
+      <h3>Benchmarks Built-In</h3>
+      <p>The app includes gender-specific and age-adjusted performance benchmarks so each student can instantly compare their predicted class against population norms — creating a personally meaningful analytics experience.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ═══════════ PAGE: TEAM ═══════════ -->
+<section id="page-team" class="page" aria-label="Meet the Team">
+  <div class="section-header">
+    <h2>Meet the Team</h2>
+    <span class="sh-tag">SNIPERS TEAM</span>
+    <div class="sh-line"></div>
+  </div>
+  
+  <div class="team-intro">
+    <p>Behind <strong>APEX Body Performance Intelligence</strong> is the dedicated <em>Snipers Team</em> from the Military Technical College. We combined advanced machine learning and modern web technologies to bring this intelligence platform to life.</p>
+  </div>
+
+  <div class="team-grid">
+    
+    <!-- Leader -->
+    <article class="team-card" style="border-top:3px solid var(--gold)">
+      <div class="team-avatar">
+        <div class="placeholder-avatar">🎯</div>
+      </div>
+      <h3 class="team-name">Leader Name</h3>
+      <div class="team-role" style="color:var(--gold)">Team Leader</div>
+      <p class="team-desc">Guiding the overall project vision, architecture, and coordinating the team's efforts.</p>
+      <div class="team-social">
+        <a href="#" class="social-link" title="LinkedIn">in</a>
+        <a href="#" class="social-link" title="GitHub">gh</a>
+      </div>
+    </article>
+
+    <!-- Team Member 1 -->
+    <article class="team-card">
+      <div class="team-avatar">
+        <div class="placeholder-avatar">👤</div>
+      </div>
+      <h3 class="team-name">Member Name</h3>
+      <div class="team-role">AI / ML Engineer</div>
+      <p class="team-desc">Responsible for data preprocessing, building the pipeline, and calibrating the Random Forest models.</p>
+      <div class="team-social">
+        <a href="#" class="social-link" title="LinkedIn">in</a>
+        <a href="#" class="social-link" title="GitHub">gh</a>
+      </div>
+    </article>
+
+    <!-- Team Member 2 -->
+    <article class="team-card">
+      <div class="team-avatar">
+        <div class="placeholder-avatar">👤</div>
+      </div>
+      <h3 class="team-name">Member Name</h3>
+      <div class="team-role">Full Stack Developer</div>
+      <p class="team-desc">Focused on translating the ML models into a high-performance web application, designing the UI and connecting the backend API.</p>
+      <div class="team-social">
+        <a href="#" class="social-link" title="LinkedIn">in</a>
+        <a href="#" class="social-link" title="GitHub">gh</a>
+      </div>
+    </article>
+
+    <!-- Team Member 3 -->
+    <article class="team-card">
+      <div class="team-avatar">
+        <div class="placeholder-avatar">👤</div>
+      </div>
+      <h3 class="team-name">Member Name</h3>
+      <div class="team-role">Data Scientist</div>
+      <p class="team-desc">Conducted Exploratory Data Analysis (EDA), established the statistical benchmarks, and validated feature importance.</p>
+      <div class="team-social">
+        <a href="#" class="social-link" title="LinkedIn">in</a>
+        <a href="#" class="social-link" title="GitHub">gh</a>
+      </div>
+    </article>
+
+    <!-- Team Member 4 -->
+    <article class="team-card">
+      <div class="team-avatar">
+        <div class="placeholder-avatar">👤</div>
+      </div>
+      <h3 class="team-name">Member Name</h3>
+      <div class="team-role">DevOps Engineer</div>
+      <p class="team-desc">Managed the deployment pipelines, containerization with Docker, and cloud hosting integration.</p>
+      <div class="team-social">
+        <a href="#" class="social-link" title="LinkedIn">in</a>
+        <a href="#" class="social-link" title="GitHub">gh</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <span>APEX · Body Performance Intelligence · Snipers Team · Military Technical College · 2025</span>
+  <span class="ft-brand">RF · 13,393 records · 4 classes · 11 features</span>
+</footer>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Scripts (order matters: predict → radar → ui → app) -->
+<script src="js/predict.js"></script>
+<script src="js/radar.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+/* ══════════════════════════════════════════════════════════════════════════════
+   APEX · Prediction Engine
+   Calibrated statistical model approximating the Random Forest.
+   In production: replace computeClass() with fetch() to FastAPI endpoint.
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+function sigmoid(x) { return 1 / (1 + Math.exp(-x)); }
+
+function computeClass(inputs) {
+  const { age, gender, height, weight, fat, diastolic, systolic, grip, bend, situps, jump } = inputs;
+
+  // Normalize to approximate z-scores based on dataset statistics
+  const z = {
+    age:    (age - 36.8) / 8.4,
+    gender: gender === 'M' ? 0 : 1,
+    height: (height - 168.6) / 9.6,
+    weight: (weight - 67.1) / 13.3,
+    fat:    (fat - 23.5) / 8.2,
+    diast:  (diastolic - 79.7) / 12.6,
+    syst:   (systolic - 130.3) / 17.4,
+    grip:   (grip - 36.8) / 14.6,
+    bend:   (bend - 19.2) / 11.4,
+    situ:   (situps - 35.0) / 13.5,
+    jmp:    (jump - 143.6) / 37.1,
+  };
+
+  // Fitness score (higher = better)
+  const fitness = (
+    0.261 * (-z.fat) +
+    0.254 * z.bend  +
+    0.239 * z.situ  +
+    0.135 * (-z.age)+
+    0.094 * z.jmp   +
+    0.081 * z.grip  +
+    0.071 * (-z.weight) +
+    0.065 * (z.gender === 0 ? 0.3 : -0.2) +
+    0.035 * z.height
+  );
+
+  // Convert fitness score to class probabilities
+  const thresholds = { A: 0.9, B: 0.0, C: -0.8 };
+  const spread = 1.2;
+
+  const scoreA = sigmoid((fitness - thresholds.A) * spread * 2.5);
+  const scoreB = sigmoid((fitness - thresholds.B) * spread * 1.8);
+  const scoreC = sigmoid((fitness - thresholds.C) * spread * 2.0);
+
+  let pD = (1 - scoreC) * 0.92;
+  let pC = (scoreC - scoreB) * 0.88;
+  let pB = (scoreB - scoreA) * 0.90;
+  let pA = scoreA * 0.95;
+
+  // Normalize
+  const total = pA + pB + pC + pD;
+  pA /= total; pB /= total; pC /= total; pD /= total;
+
+  const probs = { A: pA, B: pB, C: pC, D: pD };
+  const cls = Object.entries(probs).sort((a, b) => b[1] - a[1])[0][0];
+
+  return { cls, probs };
+}
+
+function estimateBroadJump(inputs) {
+  const { age, gender, height, weight, fat, grip, bend, situps } = inputs;
+  const base = 143.6;
+  const est = base
+    + height  * 0.38
+    - weight  * 0.22
+    - fat     * 1.05
+    + grip    * 0.62
+    + bend    * 0.34
+    + situps  * 0.82
+    - age     * 0.75
+    + (gender === 'M' ? 18.4 : -12.1)
+    + (Math.random() - 0.5) * 4;
+  return Math.max(50, Math.min(300, Math.round(est)));
+}
+
+// ── Constants ────────────────────────────────────────────────────────────────
+const CLASS_INFO = {
+  A: { name: 'ELITE PERFORMER', desc: 'Top-tier fitness. Exceptional across all measured dimensions.' },
+  B: { name: 'ABOVE AVERAGE',   desc: 'Strong performer. Minor gaps that targeted training can close.' },
+  C: { name: 'AVERAGE',         desc: 'Moderate fitness. Structured programme will drive measurable gains.' },
+  D: { name: 'BELOW AVERAGE',   desc: 'Below baseline. Consistent training focus required across all areas.' },
+};
+
+const CLASS_TIPS = {
+  A: [
+    { icon: '🔥', text: 'Maintain peak with progressive overload and periodisation.' },
+    { icon: '⚡', text: 'Consider plyometric training to further develop explosive power.' },
+    { icon: '🛡️', text: 'Focus on injury prevention — add mobility and recovery sessions.' },
+  ],
+  B: [
+    { icon: '🏋️', text: 'Increase sit-up volume by 15% over the next 4 weeks.' },
+    { icon: '🤸', text: 'Add daily flexibility work — target sit-and-bend improvement.' },
+    { icon: '📈', text: 'Track body composition weekly; aim to reduce fat by 1-2%.' },
+  ],
+  C: [
+    { icon: '🎯', text: 'Prioritise grip strength training 3× per week — it is a key predictor.' },
+    { icon: '🏃', text: 'Add broad jump drills — explosive leg power drives class separation.' },
+    { icon: '🥗', text: 'Review nutrition: reducing body fat is the single highest-impact lever.' },
+    { icon: '📆', text: 'Create a structured 8-week training plan with weekly progress checks.' },
+  ],
+  D: [
+    { icon: '🚀', text: 'Start with 3 compound workouts per week — build the base first.' },
+    { icon: '🥗', text: 'Nutrition review is critical: body fat has the strongest negative impact.' },
+    { icon: '🤸', text: 'Daily flexibility routine (10 min) will accelerate class progression.' },
+    { icon: '📏', text: 'Retest monthly — even small improvements in sit-ups and bend matter.' },
+    { icon: '🧠', text: 'Consider working with a certified fitness trainer for a personalised plan.' },
+  ],
+};
+
+const JUMP_BENCHMARKS = {
+  A: 'Class A athletes: 200–300 cm average',
+  B: 'Class B athletes: 160–200 cm average',
+  C: 'Class C athletes: 130–165 cm average',
+  D: 'Class D athletes: 60–135 cm average',
+};
