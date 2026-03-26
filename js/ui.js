@@ -30,21 +30,32 @@ async function runPredict() {
       return;
     }
 
-    // Phase 1 API integration
-    const response = await fetch('http://127.0.0.1:8000/predict', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(inputs)
-    });
-    
-    if (!response.ok) throw new Error('Network response was not ok');
-    const data = await response.json();
+    let cls, probs, jumpEst;
+    try {
+      // Phase 1 API integration
+      const response = await fetch('http://127.0.0.1:8000/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(inputs)
+      });
+      
+      if (!response.ok) throw new Error('Network response was not ok');
+      const data = await response.json();
 
-    if (data.error) throw new Error(data.error);
+      if (data.error) throw new Error(data.error);
 
-    const cls = data.predicted_class;
-    const probs = data.probabilities;
-    const jumpEst = data.predicted_broad_jump_cm;
+      cls = data.predicted_class;
+      probs = data.probabilities;
+      jumpEst = data.predicted_broad_jump_cm;
+    } catch (apiError) {
+      console.warn("Backend API not reachable. Falling back to local JS model.", apiError);
+      
+      // Fallback to local JS stub functions
+      const local = computeClass(inputs);
+      cls = local.cls;
+      probs = local.probs;
+      jumpEst = estimateBroadJump(inputs);
+    }
 
     // --- Update class card ---
     const card = document.getElementById('class-result-card');
