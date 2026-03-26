@@ -7,7 +7,19 @@
 function sigmoid(x) { return 1 / (1 + Math.exp(-x)); }
 
 function computeClass(inputs) {
-  const { age, gender, height, weight, fat, diastolic, systolic, grip, bend, situps, jump } = inputs;
+  const { 
+    age, 
+    gender, 
+    height_cm: height, 
+    weight_kg: weight, 
+    body_fat_pct: fat, 
+    diastolic, 
+    systolic, 
+    gripForce: grip, 
+    sit_and_bend_forward_cm: bend, 
+    sit_ups_counts: situps, 
+    broad_jump_cm: jump 
+  } = inputs;
 
   // Normalize to approximate z-scores based on dataset statistics
   const z = {
@@ -61,7 +73,16 @@ function computeClass(inputs) {
 }
 
 function estimateBroadJump(inputs) {
-  const { age, gender, height, weight, fat, grip, bend, situps } = inputs;
+  const { 
+    age, 
+    gender, 
+    height_cm: height, 
+    weight_kg: weight, 
+    body_fat_pct: fat, 
+    gripForce: grip, 
+    sit_and_bend_forward_cm: bend, 
+    sit_ups_counts: situps 
+  } = inputs;
   const base = 143.6;
   const est = base
     + height  * 0.38
