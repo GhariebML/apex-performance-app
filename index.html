@@ -16,20 +16,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/nav.css">
-  <link rel="stylesheet" href="css/hero.css">
-  <link rel="stylesheet" href="css/forms.css">
-  <link rel="stylesheet" href="css/results.css">
-  <link rel="stylesheet" href="css/charts.css">
-  <link rel="stylesheet" href="css/models.css">
-  <link rel="stylesheet" href="css/dataset.css">
-  <link rel="stylesheet" href="css/plan.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/team.css">
-  <link rel="stylesheet" href="css/history.css">
-  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/variables.css?v=2">
+  <link rel="stylesheet" href="css/base.css?v=2">
+  <link rel="stylesheet" href="css/nav.css?v=2">
+  <link rel="stylesheet" href="css/hero.css?v=2">
+  <link rel="stylesheet" href="css/forms.css?v=5">
+  <link rel="stylesheet" href="css/results.css?v=3">
+  <link rel="stylesheet" href="css/charts.css?v=2">
+  <link rel="stylesheet" href="css/models.css?v=2">
+  <link rel="stylesheet" href="css/dataset.css?v=2">
+  <link rel="stylesheet" href="css/plan.css?v=2">
+  <link rel="stylesheet" href="css/report.css?v=1">
+  <link rel="stylesheet" href="css/components.css?v=2">
+  <link rel="stylesheet" href="css/team.css?v=2">
+  <link rel="stylesheet" href="css/history.css?v=2">
+  <link rel="stylesheet" href="css/responsive.css?v=2">
 </head>
 <body>
 <div class="app-shell">
@@ -44,13 +45,13 @@
     <button class="nav-tab active" id="tab-predict" onclick="showPage('predict',this)">⚡ Predict</button>
     <button class="nav-tab" id="tab-models" onclick="showPage('models',this)">📊 Models</button>
     <button class="nav-tab" id="tab-about" onclick="showPage('about',this)">📋 Dataset</button>
-    <button class="nav-tab" id="tab-plan" onclick="showPage('plan',this)">🗺️ App Plan</button>
+    <button class="nav-tab" id="tab-report" onclick="showPage('report',this)">📑 Final Report</button>
     <button class="nav-tab" id="tab-team" onclick="showPage('team',this)">👥 Snipers</button>
     <button class="nav-tab" id="tab-history" onclick="openHistoryModal()" style="border-color:var(--gold);color:var(--gold)">📈 History</button>
     <a href="https://colab.research.google.com/drive/1UkXwF0ISOlMpIgq97MMc9BIdJjb8SmRN#scrollTo=WuL331rnedFH" target="_blank" class="nav-tab" id="tab-colab" style="text-decoration:none; color:var(--teal); border-color:var(--teal);">🔬 Live Colab ↗</a>
   </div>
   <div class="nav-badge">
-    <span>●</span> RF · 74.8% ACC
+    <span>●</span> RF · 75.1% ACC
   </div>
 </nav>
 
@@ -69,7 +70,7 @@
     </div>
     <div class="hero-stats">
       <div class="hero-stat"><span class="val">13,393</span><span class="lbl">Records</span></div>
-      <div class="hero-stat"><span class="val">74.8%</span><span class="lbl">Accuracy</span></div>
+      <div class="hero-stat"><span class="val">75.1%</span><span class="lbl">Accuracy</span></div>
       <div class="hero-stat"><span class="val">~0.99</span><span class="lbl">Jump R²</span></div>
     </div>
   </div>
@@ -288,10 +289,10 @@
     <div class="lb-row top">
       <span class="lb-rank gold">🥇</span>
       <div class="lb-bar-col"><div class="lb-bar"><div class="lb-bar-fill rf" style="width:94%"></div></div><span class="lb-model">Random Forest</span></div>
-      <span class="lb-metric" style="color:var(--teal)">74.8%</span>
-      <span class="lb-metric" style="color:var(--teal)">74.6%</span>
-      <span class="lb-metric" style="color:var(--teal)">74.8%</span>
-      <span class="lb-metric" style="color:var(--teal)">74.7%</span>
+      <span class="lb-metric" style="color:var(--teal)">75.1%</span>
+      <span class="lb-metric" style="color:var(--teal)">75.0%</span>
+      <span class="lb-metric" style="color:var(--teal)">75.1%</span>
+      <span class="lb-metric" style="color:var(--teal)">75.0%</span>
     </div>
     <div class="lb-row">
       <span class="lb-rank" style="color:#aaa">🥈</span>
@@ -448,106 +449,197 @@
   </div>
 </section>
 
-<!-- ═══════════ PAGE: APP PLAN ═══════════ -->
-<section id="page-plan" class="page" aria-label="Application Architecture Plan">
+<!-- ═══════════ PAGE: FINAL REPORT ═══════════ -->
+<section id="page-report" class="page" aria-label="Final Report & Insights">
+
+  <!-- ── Executive Summary ─────────────────────────────────────────────────── -->
   <div class="section-header">
-    <h2>App Architecture Plan</h2>
-    <span class="sh-tag">PRODUCTION ROADMAP</span>
+    <h2>Executive Summary</h2>
+    <span class="sh-tag">FINAL REPORT</span>
     <div class="sh-line"></div>
   </div>
 
-  <div class="about-grid">
-    <article class="about-card" style="border-top:3px solid var(--teal)">
-      <span class="ac-icon">⚡</span>
-      <h3>Phase 1 — Core Engine</h3>
-      <p>Train and serialize the final Random Forest classifier and regressor using <strong style="color:var(--teal)">joblib</strong>. Expose them via a <strong style="color:var(--teal)">FastAPI</strong> backend with a single <code>/predict</code> POST endpoint that accepts all 11 features and returns: predicted class, class probabilities, and estimated broad jump distance.</p>
-    </article>
-    <article class="about-card" style="border-top:3px solid var(--blue)">
-      <span class="ac-icon">🌐</span>
-      <h3>Phase 2 — Frontend (This App)</h3>
-      <p>This HTML/JS app is the production frontend. It features slider-based input controls, animated probability bars, a performance radar chart, real-time broad jump estimation, and personalized training insights — all communicating with the FastAPI backend.</p>
-    </article>
-    <article class="about-card" style="border-top:3px solid var(--gold)">
-      <span class="ac-icon">🐳</span>
-      <h3>Phase 3 — Deployment</h3>
-      <p>Containerize with <strong style="color:var(--gold)">Docker</strong>. Deploy the FastAPI backend to <strong style="color:var(--gold)">Render</strong>, <strong style="color:var(--gold)">Railway</strong>, or <strong style="color:var(--gold)">Hugging Face Spaces</strong>. Serve the HTML frontend as a static site on Netlify or Vercel. Configure CORS and connect via environment variable.</p>
-    </article>
-    <article class="about-card" style="border-top:3px solid var(--red)">
-      <span class="ac-icon">📱</span>
-      <h3>Phase 4 — Enhancements</h3>
-      <p>Add user history (localStorage), comparison mode (compare two profiles side-by-side), class-trend animation, BMI auto-calculation, age-adjusted benchmarks per gender, and a training recommendations engine based on weakest features.</p>
-    </article>
-  </div>
-
-  <div class="section-header" style="margin-top:4px;">
-    <h2>Technical Stack</h2>
-    <span class="sh-tag">FULL STACK</span>
-    <div class="sh-line"></div>
-  </div>
-  <div class="leaderboard" style="margin-bottom:20px;">
-    <div class="leaderboard-header"><span>Layer</span><span>Technology</span><span style="text-align:right">Purpose</span></div>
-    <div class="lb-row"><span class="lb-rank" style="color:var(--teal)">ML</span><span class="lb-model">scikit-learn + joblib</span><span class="lb-metric" style="text-align:left;color:var(--text2)">Random Forest train, serialize, load</span></div>
-    <div class="lb-row"><span class="lb-rank" style="color:var(--blue)">API</span><span class="lb-model">FastAPI + Pydantic</span><span class="lb-metric" style="text-align:left;color:var(--text2)">REST endpoint · input validation · CORS</span></div>
-    <div class="lb-row"><span class="lb-rank" style="color:var(--gold)">UI</span><span class="lb-model">HTML/CSS/JS (this file)</span><span class="lb-metric" style="text-align:left;color:var(--text2)">Interactive frontend · radar chart · probability viz</span></div>
-    <div class="lb-row"><span class="lb-rank" style="color:var(--red)">OPS</span><span class="lb-model">Docker + Render/Hugging Face</span><span class="lb-metric" style="text-align:left;color:var(--text2)">Container deploy · free tier hosting</span></div>
-    <div class="lb-row"><span class="lb-rank" style="color:var(--text2)">ALT</span><span class="lb-model">Gradio (notebook demo)</span><span class="lb-metric" style="text-align:left;color:var(--text2)">Quick in-notebook Gradio demo for classroom</span></div>
-  </div>
-
-  <div class="section-header">
-    <h2>Backend API Contract</h2>
-    <span class="sh-tag">FASTAPI</span>
-    <div class="sh-line"></div>
-  </div>
-  <div style="background:var(--panel-solid);border:1px solid var(--border);border-radius:var(--radius2);padding:18px;margin-bottom:20px;">
-    <div style="font-family:var(--font-mono);font-size:12px;color:var(--text2);line-height:2;">
-      <span style="color:var(--teal)">POST</span> <span style="color:var(--white)">/predict</span><br><br>
-      <span style="color:var(--text3)">// Request body (JSON)</span><br>
-      {<br>
-      &nbsp;&nbsp;"age": <span style="color:var(--gold)">35</span>,<br>
-      &nbsp;&nbsp;"gender": <span style="color:var(--green)">"M"</span>,<br>
-      &nbsp;&nbsp;"height_cm": <span style="color:var(--gold)">170</span>,<br>
-      &nbsp;&nbsp;"weight_kg": <span style="color:var(--gold)">70</span>,<br>
-      &nbsp;&nbsp;"body_fat_pct": <span style="color:var(--gold)">20</span>,<br>
-      &nbsp;&nbsp;"diastolic": <span style="color:var(--gold)">80</span>,<br>
-      &nbsp;&nbsp;"systolic": <span style="color:var(--gold)">120</span>,<br>
-      &nbsp;&nbsp;"gripForce": <span style="color:var(--gold)">35</span>,<br>
-      &nbsp;&nbsp;"sit_and_bend_cm": <span style="color:var(--gold)">20</span>,<br>
-      &nbsp;&nbsp;"sit_ups": <span style="color:var(--gold)">35</span>,<br>
-      &nbsp;&nbsp;"broad_jump_cm": <span style="color:var(--gold)">160</span><br>
-      }<br><br>
-      <span style="color:var(--text3)">// Response body</span><br>
-      {<br>
-      &nbsp;&nbsp;"predicted_class": <span style="color:var(--green)">"B"</span>,<br>
-      &nbsp;&nbsp;"probabilities": { "A": <span style="color:var(--gold)">0.18</span>, "B": <span style="color:var(--gold)">0.42</span>, "C": <span style="color:var(--gold)">0.28</span>, "D": <span style="color:var(--gold)">0.12</span> },<br>
-      &nbsp;&nbsp;"predicted_broad_jump_cm": <span style="color:var(--gold)">168.4</span>,<br>
-      &nbsp;&nbsp;"model_version": <span style="color:var(--green)">"rf-v1.0"</span><br>
-      }
+  <div class="report-executive">
+    <div class="report-exec-badge">
+      <div class="exec-badge-icon">📑</div>
+      <div class="exec-badge-label">02_Snipers_Team<br>Body Performance<br>Final Report</div>
+    </div>
+    <div class="report-exec-body">
+      <p class="exec-lead">
+        The <strong style="color:var(--teal)">Snipers Team</strong> from the Military Technical College presents the culmination of our AI &amp; Machine Learning final project: a comprehensive body performance intelligence system that classifies individuals into performance tiers (A–D) and predicts broad jump distance with near-perfect accuracy.
+      </p>
+      <div class="exec-stats-row">
+        <div class="exec-stat">
+          <span class="exec-stat-val">13,393</span>
+          <span class="exec-stat-label">Records Analyzed</span>
+        </div>
+        <div class="exec-stat">
+          <span class="exec-stat-val">5</span>
+          <span class="exec-stat-label">Classifiers Trained</span>
+        </div>
+        <div class="exec-stat">
+          <span class="exec-stat-val">3</span>
+          <span class="exec-stat-label">Regression Models</span>
+        </div>
+        <div class="exec-stat">
+          <span class="exec-stat-val" style="color:var(--teal)">75.1%</span>
+          <span class="exec-stat-label">Best Accuracy (RF)</span>
+        </div>
+      </div>
+      <p class="exec-sub">
+        Our end-to-end pipeline covers data cleaning, exploratory analysis, feature engineering, model training and hyperparameter tuning, evaluation, and deployment — resulting in a production-ready web application backed by a FastAPI inference server.
+      </p>
     </div>
   </div>
 
-  <div class="section-header">
-    <h2>Classroom Integration</h2>
-    <span class="sh-tag">EDUCATION</span>
+  <!-- ── Key System Insights ──────────────────────────────────────────────── -->
+  <div class="section-header" style="margin-top:32px;">
+    <h2>Key System Insights</h2>
+    <span class="sh-tag">FEATURE ANALYSIS</span>
     <div class="sh-line"></div>
   </div>
-  <div class="about-grid">
-    <article class="about-card">
-      <span class="ac-icon">🎓</span>
-      <h3>Student Demo Mode</h3>
-      <p>This app runs entirely in-browser — no backend needed in demo mode. The prediction engine uses a calibrated statistical model (approximating the trained Random Forest) so students can explore predictions immediately without server setup.</p>
-    </article>
-    <article class="about-card">
-      <span class="ac-icon">🔬</span>
-      <h3>Live Notebook Link</h3>
-      <p>Connect this frontend to a running Colab notebook by exposing the Gradio app via <strong style="color:var(--teal)">ngrok</strong> or using <strong style="color:var(--teal)">Colab's built-in port forwarding</strong> to serve the FastAPI backend directly from the notebook environment.</p>
-      <a href="https://colab.research.google.com/drive/1UkXwF0ISOlMpIgq97MMc9BIdJjb8SmRN#scrollTo=WuL331rnedFH" target="_blank" style="display:inline-block; margin-top:16px; padding:10px 20px; background:rgba(0,229,200,0.1); color:var(--teal); border:1px solid var(--teal); border-radius:var(--radius1); text-decoration:none; font-weight:600; font-family:var(--font-mono); font-size:13px; transition:all 0.3s ease; cursor:pointer;" onmouseover="this.style.background='var(--teal)'; this.style.color='#0a0a0c'" onmouseout="this.style.background='rgba(0,229,200,0.1)'; this.style.color='var(--teal)'">LAUNCH COLAB ENVIRONMENT ↗</a>
-    </article>
-    <article class="about-card">
-      <span class="ac-icon">📊</span>
-      <h3>Benchmarks Built-In</h3>
-      <p>The app includes gender-specific and age-adjusted performance benchmarks so each student can instantly compare their predicted class against population norms — creating a personally meaningful analytics experience.</p>
-    </article>
+
+  <div class="report-insights-grid">
+    <div class="report-insight-card" style="border-top:3px solid var(--teal)">
+      <div class="insight-rank">#1</div>
+      <div class="insight-icon">🧘</div>
+      <h3>Flexibility (Sit & Bend)</h3>
+      <div class="insight-importance">Importance: <strong style="color:var(--teal)">0.261</strong></div>
+      <p>The single most influential feature in determining performance class. Individuals with higher flexibility scores are disproportionately represented in Class A, confirming that mobility is a cornerstone of overall fitness.</p>
+    </div>
+    <div class="report-insight-card" style="border-top:3px solid var(--blue)">
+      <div class="insight-rank">#2</div>
+      <div class="insight-icon">💪</div>
+      <h3>Core Endurance (Sit-ups)</h3>
+      <div class="insight-importance">Importance: <strong style="color:var(--blue)">0.141</strong></div>
+      <p>Sit-up count emerged as the second-most predictive feature. A strong core correlates with higher class placement and better broad jump performance, underscoring the role of muscular endurance in athletic classification.</p>
+    </div>
+    <div class="report-insight-card" style="border-top:3px solid var(--gold)">
+      <div class="insight-rank">#3</div>
+      <div class="insight-icon">⚖️</div>
+      <h3>Body Composition (BMI &amp; Fat %)</h3>
+      <div class="insight-importance">Importance: <strong style="color:var(--gold)">0.119</strong></div>
+      <p>Body fat percentage is the strongest negative predictor. Lower body fat, combined with a healthy BMI, is a consistent marker of superior physical performance across all class boundaries in the dataset.</p>
+    </div>
+    <div class="report-insight-card" style="border-top:3px solid var(--green)">
+      <div class="insight-rank">#4</div>
+      <div class="insight-icon">🤝</div>
+      <h3>Grip Force</h3>
+      <div class="insight-importance">Importance: <strong style="color:var(--green)">0.081</strong></div>
+      <p>Grip strength serves as a powerful proxy for overall muscular strength. Our analysis reveals a significant correlation between grip force and broad jump distance, making it a reliable indicator of explosive power readiness.</p>
+    </div>
   </div>
+
+  <!-- ── Methodology & Results ────────────────────────────────────────────── -->
+  <div class="section-header" style="margin-top:32px;">
+    <h2>Methodology &amp; Results</h2>
+    <span class="sh-tag">PERFORMANCE</span>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="report-results-grid">
+    <div class="report-result-card champion">
+      <div class="result-crown">🏆</div>
+      <div class="result-model">Random Forest Classifier</div>
+      <div class="result-metric-big">75.1%</div>
+      <div class="result-metric-label">Classification Accuracy</div>
+      <div class="result-details">
+        <div class="result-detail-row"><span>Precision</span><span style="color:var(--teal)">75.0%</span></div>
+        <div class="result-detail-row"><span>Recall</span><span style="color:var(--teal)">75.1%</span></div>
+        <div class="result-detail-row"><span>F1 Score</span><span style="color:var(--teal)">75.0%</span></div>
+        <div class="result-detail-row"><span>Training Split</span><span>70 / 30</span></div>
+        <div class="result-detail-row"><span>Cross-Validation</span><span>5-fold</span></div>
+      </div>
+      <div class="result-badge">BEST CLASSIFIER</div>
+    </div>
+
+    <div class="report-result-card">
+      <div class="result-crown">🎯</div>
+      <div class="result-model">RF Regressor (Jump)</div>
+      <div class="result-metric-big" style="color:var(--blue)">~0.99</div>
+      <div class="result-metric-label">R² Score</div>
+      <div class="result-details">
+        <div class="result-detail-row"><span>Task</span><span>Broad Jump (cm)</span></div>
+        <div class="result-detail-row"><span>MAE</span><span>Very Low</span></div>
+        <div class="result-detail-row"><span>Fit Quality</span><span style="color:var(--green)">Near-Perfect</span></div>
+      </div>
+      <div class="result-badge" style="background:rgba(77,159,255,0.12);color:var(--blue);">BEST REGRESSOR</div>
+    </div>
+
+    <div class="report-result-card">
+      <div class="result-crown">📐</div>
+      <div class="result-model">Methodology</div>
+      <div class="result-metric-big" style="color:var(--gold);font-size:32px;">End-to-End</div>
+      <div class="result-metric-label">ML Pipeline</div>
+      <div class="result-details">
+        <div class="result-detail-row"><span>Cleaning</span><span>Duplicates + BP Logic</span></div>
+        <div class="result-detail-row"><span>Encoding</span><span>Label + Standard Scaler</span></div>
+        <div class="result-detail-row"><span>Feature Selection</span><span>Gini + Permutation</span></div>
+        <div class="result-detail-row"><span>Evaluation</span><span>Acc, F1, CM, R²</span></div>
+        <div class="result-detail-row"><span>Deployment</span><span>FastAPI + APEX App</span></div>
+      </div>
+      <div class="result-badge" style="background:rgba(240,165,0,0.12);color:var(--gold);">PIPELINE</div>
+    </div>
+  </div>
+
+  <!-- ── Project Artifacts ────────────────────────────────────────────────── -->
+  <div class="section-header" style="margin-top:32px;">
+    <h2>Project Artifacts</h2>
+    <span class="sh-tag">DOWNLOADS</span>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="report-artifacts-grid">
+    <a href="https://drive.google.com/drive/folders/14hkXj6p3HscAppMKv1W5yEzUKUcFjWzn?usp=sharing" target="_blank" class="report-artifact-btn" id="artifact-report">
+      <div class="artifact-icon">📄</div>
+      <div class="artifact-info">
+        <div class="artifact-title">Final Report (PDF)</div>
+        <div class="artifact-desc">02_Snipers_Team_Body_Performance_Final_Report · 1.4 MB</div>
+      </div>
+      <div class="artifact-arrow">↗</div>
+    </a>
+    <a href="https://drive.google.com/drive/folders/14hkXj6p3HscAppMKv1W5yEzUKUcFjWzn?usp=sharing" target="_blank" class="report-artifact-btn" id="artifact-notebook">
+      <div class="artifact-icon">📓</div>
+      <div class="artifact-info">
+        <div class="artifact-title">ML Notebook (ipynb)</div>
+        <div class="artifact-desc">03_Snipers_Team_ML_Notebook — Full training pipeline · 6.4 MB</div>
+      </div>
+      <div class="artifact-arrow">↗</div>
+    </a>
+    <a href="https://drive.google.com/drive/folders/14hkXj6p3HscAppMKv1W5yEzUKUcFjWzn?usp=sharing" target="_blank" class="report-artifact-btn" id="artifact-presentation">
+      <div class="artifact-icon">📊</div>
+      <div class="artifact-info">
+        <div class="artifact-title">Presentation Slides (PPTX)</div>
+        <div class="artifact-desc">04_Snipers_Team_Presentation — Key Findings · 1.8 MB</div>
+      </div>
+      <div class="artifact-arrow">↗</div>
+    </a>
+    <a href="https://drive.google.com/drive/folders/14hkXj6p3HscAppMKv1W5yEzUKUcFjWzn?usp=sharing" target="_blank" class="report-artifact-btn" id="artifact-tasks">
+      <div class="artifact-icon">📋</div>
+      <div class="artifact-info">
+        <div class="artifact-title">Task Distribution Report</div>
+        <div class="artifact-desc">01_Snipers_Team_Tasks_Distribution_Report · 217 KB</div>
+      </div>
+      <div class="artifact-arrow">↗</div>
+    </a>
+    <a href="https://drive.google.com/drive/folders/14hkXj6p3HscAppMKv1W5yEzUKUcFjWzn?usp=sharing" target="_blank" class="report-artifact-btn" id="artifact-analytics">
+      <div class="artifact-icon">🔬</div>
+      <div class="artifact-info">
+        <div class="artifact-title">Analytics &amp; Classification Notebook</div>
+        <div class="artifact-desc">Body_Performance_Analytics_&amp;_Intelligent_Classification_System · 7.7 MB</div>
+      </div>
+      <div class="artifact-arrow">↗</div>
+    </a>
+    <a href="https://drive.google.com/drive/folders/14hkXj6p3HscAppMKv1W5yEzUKUcFjWzn?usp=sharing" target="_blank" class="report-artifact-btn" id="artifact-drive">
+      <div class="artifact-icon">📁</div>
+      <div class="artifact-info">
+        <div class="artifact-title">Google Drive — Full Project</div>
+        <div class="artifact-desc">Complete submission: all reports, notebooks, datasets &amp; documentation</div>
+      </div>
+      <div class="artifact-arrow">↗</div>
+    </a>
+  </div>
+
 </section>
 
 <!-- ═══════════ PAGE: TEAM ═══════════ -->

@@ -1,7 +1,280 @@
-/* ── App Plan Page ── */
-.about-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-bottom: 24px; }
-.about-card { background: var(--panel); backdrop-filter: var(--glass-blur); border: 1px solid var(--border); border-radius: var(--radius2); padding: 20px; transition: all var(--trans); }
-.about-card:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.about-card .ac-icon { font-size: 24px; margin-bottom: 10px; display: block; }
-.about-card h3 { font-family: var(--font-head); font-size: 15px; font-weight: 700; letter-spacing: 1px; color: var(--white); margin-bottom: 6px; }
-.about-card p { font-size: 12px; color: var(--text2); line-height: 1.65; }
+/* ══════════════════════════════════════════════════════════════════════════════
+   APEX · App Plan Page — Enhanced Styling
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+/* ── Phase Cards Grid ─────────────────────────────────────────────────────── */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.about-card {
+  background: var(--panel);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 24px;
+  transition: all var(--trans);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  opacity: 0.6;
+  transition: opacity var(--trans);
+}
+
+.about-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.about-card:hover::before {
+  opacity: 1;
+}
+
+.about-card .ac-icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+  display: block;
+  filter: drop-shadow(0 0 8px rgba(0,229,200,0.2));
+}
+
+.about-card h3 {
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.about-card p {
+  font-size: 12.5px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+.about-card p strong {
+  font-weight: 600;
+}
+
+.about-card p code {
+  background: rgba(0,229,200,0.08);
+  border: 1px solid rgba(0,229,200,0.15);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--teal);
+}
+
+/* ── Technical Stack Table ─────────────────────────────────────────────────── */
+.plan-stack-table {
+  background: var(--panel-solid);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.plan-stack-table .stack-header {
+  display: grid;
+  grid-template-columns: 80px 1fr 1.5fr;
+  padding: 14px 20px;
+  background: rgba(0,229,200,0.04);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--text3);
+  text-transform: uppercase;
+}
+
+.plan-stack-table .stack-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 1.5fr;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+  transition: background var(--trans);
+}
+
+.plan-stack-table .stack-row:last-child {
+  border-bottom: none;
+}
+
+.plan-stack-table .stack-row:hover {
+  background: rgba(0,229,200,0.03);
+}
+
+.plan-stack-table .stack-layer {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.plan-stack-table .stack-tech {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--white);
+}
+
+.plan-stack-table .stack-purpose {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+
+/* ── API Contract Block ────────────────────────────────────────────────────── */
+.api-contract {
+  background: var(--panel-solid);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 24px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.api-contract::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--teal), var(--blue), var(--teal));
+  opacity: 0.5;
+}
+
+.api-contract .api-method {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.api-contract .api-method .method-badge {
+  background: rgba(0,229,200,0.12);
+  color: var(--teal);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.api-contract .api-method .endpoint {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--white);
+  font-weight: 600;
+}
+
+.api-contract .code-block {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--text2);
+}
+
+.api-contract .code-block .comment {
+  color: var(--text3);
+}
+
+.api-contract .code-block .string {
+  color: var(--green);
+}
+
+.api-contract .code-block .number {
+  color: var(--gold);
+}
+
+.api-contract .code-block .key {
+  color: var(--text);
+}
+
+/* ── Classroom Integration Cards ───────────────────────────────────────────── */
+.classroom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.classroom-card {
+  background: var(--panel);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 24px;
+  transition: all var(--trans);
+}
+
+.classroom-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.classroom-card .cc-icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.classroom-card h3 {
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.classroom-card p {
+  font-size: 12.5px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+.classroom-card p strong {
+  font-weight: 600;
+}
+
+.colab-btn {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 10px 22px;
+  background: rgba(0,229,200,0.08);
+  color: var(--teal);
+  border: 1px solid rgba(0,229,200,0.3);
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.colab-btn:hover {
+  background: var(--teal);
+  color: #0a0a0c;
+  box-shadow: 0 0 20px rgba(0,229,200,0.3);
+  transform: translateY(-1px);
+}

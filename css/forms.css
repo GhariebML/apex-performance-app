@@ -15,6 +15,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius2);
   overflow: hidden;
+  height: 100%;
   transition: border-color var(--trans);
 }
 .form-panel:hover { border-color: var(--border2); }
@@ -50,29 +51,32 @@
 }
 
 .form-groups {
-  padding: 20px;
+  padding: 32px 28px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  justify-content: space-evenly;
+  flex: 1;
+  gap: 28px;
+  min-height: 0;
 }
 
 .form-group-row {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 12px;
+  gap: 20px;
 }
 
 /* ── Field Group Titles ──────────────────────────────────────────────────────── */
 .field-group-title {
   font-family: var(--font-head);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 2px;
   color: var(--text3);
   text-transform: uppercase;
-  padding: 0 0 8px;
+  padding: 0 0 10px;
   border-bottom: 1px solid var(--border);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 .field-group-title span { color: var(--teal); }
 
@@ -80,7 +84,7 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 7px;
 }
 .field label {
   font-size: 11px;
@@ -109,6 +113,7 @@
 .slider-wrap input[type="range"] {
   flex: 1;
   -webkit-appearance: none;
+  appearance: none;
   height: 4px;
   border-radius: 2px;
   background: var(--border2);
@@ -199,7 +204,7 @@
   font-weight: 700;
   letter-spacing: 2px;
   cursor: pointer;
-  margin-top: 4px;
+  margin-top: 28px;
   transition: all 0.25s ease;
   text-transform: uppercase;
   position: relative;
