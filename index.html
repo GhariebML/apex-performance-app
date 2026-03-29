@@ -51,7 +51,7 @@
     <a href="https://colab.research.google.com/drive/1UkXwF0ISOlMpIgq97MMc9BIdJjb8SmRN#scrollTo=WuL331rnedFH" target="_blank" class="nav-tab" id="tab-colab" style="text-decoration:none; color:var(--teal); border-color:var(--teal);">🔬 Live Colab ↗</a>
   </div>
   <div class="nav-badge">
-    <span>●</span> RF · 75.1% ACC
+    <span>●</span> RF · 75.3% ACC
   </div>
 </nav>
 
@@ -70,7 +70,7 @@
     </div>
     <div class="hero-stats">
       <div class="hero-stat"><span class="val">13,393</span><span class="lbl">Records</span></div>
-      <div class="hero-stat"><span class="val">75.1%</span><span class="lbl">Accuracy</span></div>
+      <div class="hero-stat"><span class="val">75.3%</span><span class="lbl">Accuracy</span></div>
       <div class="hero-stat"><span class="val">~0.99</span><span class="lbl">Jump R²</span></div>
     </div>
   </div>
@@ -289,10 +289,10 @@
     <div class="lb-row top">
       <span class="lb-rank gold">🥇</span>
       <div class="lb-bar-col"><div class="lb-bar"><div class="lb-bar-fill rf" style="width:94%"></div></div><span class="lb-model">Random Forest</span></div>
-      <span class="lb-metric" style="color:var(--teal)">75.1%</span>
-      <span class="lb-metric" style="color:var(--teal)">75.0%</span>
-      <span class="lb-metric" style="color:var(--teal)">75.1%</span>
-      <span class="lb-metric" style="color:var(--teal)">75.0%</span>
+      <span class="lb-metric" style="color:var(--teal)">75.3%</span>
+      <span class="lb-metric" style="color:var(--teal)">75.2%</span>
+      <span class="lb-metric" style="color:var(--teal)">75.3%</span>
+      <span class="lb-metric" style="color:var(--teal)">75.2%</span>
     </div>
     <div class="lb-row">
       <span class="lb-rank" style="color:#aaa">🥈</span>
@@ -330,8 +330,8 @@
         <span class="model-card-overview">Best overall robust bagging ensemble of 200 Decision Trees.</span>
       </div>
       <div class="model-metrics-grid">
-        <div class="mm-item"><span class="mm-label">Accuracy</span><span class="mm-val" style="color:var(--teal)">75.1%</span></div>
-        <div class="mm-item"><span class="mm-label">F1 Score</span><span class="mm-val" style="color:var(--teal)">75.0%</span></div>
+        <div class="mm-item"><span class="mm-label">Accuracy</span><span class="mm-val" style="color:var(--teal)">75.3%</span></div>
+        <div class="mm-item"><span class="mm-label">F1 Score</span><span class="mm-val" style="color:var(--teal)">75.2%</span></div>
       </div>
       <div class="model-pros-cons">
         <div class="mpc-row"><span class="mpc-icon pro">✓</span><span class="mpc-text">Highest accuracy, robust to outliers and prevents overfitting.</span></div>
@@ -506,19 +506,35 @@
   <div class="pipeline">
     <div class="pipe-step"><div class="ps-icon">📥</div><div class="ps-label">Load</div><div class="ps-tag">CSV · 13,393 rows</div></div>
     <div class="pipe-arrow">›</div>
-    <div class="pipe-step"><div class="ps-icon">🧹</div><div class="ps-label">Clean</div><div class="ps-tag">Duplicates · BP logic</div></div>
+    <div class="pipe-step"><div class="ps-icon">🧹</div><div class="ps-label">Audit</div><div class="ps-tag">Physiol. Laws</div></div>
     <div class="pipe-arrow">›</div>
-    <div class="pipe-step"><div class="ps-icon">📊</div><div class="ps-label">EDA</div><div class="ps-tag">Histograms · Heatmap</div></div>
+    <div class="pipe-step"><div class="ps-icon">📊</div><div class="ps-label">EDA</div><div class="ps-tag">Bivariate Analysis</div></div>
     <div class="pipe-arrow">›</div>
-    <div class="pipe-step"><div class="ps-icon">⚙️</div><div class="ps-label">Engineer</div><div class="ps-tag">Encode · Scale</div></div>
+    <div class="pipe-step"><div class="ps-icon">⚙️</div><div class="ps-label">Prep</div><div class="ps-tag">IQR Capping</div></div>
     <div class="pipe-arrow">›</div>
-    <div class="pipe-step"><div class="ps-icon">✂️</div><div class="ps-label">Split</div><div class="ps-tag">70/30 · 80/20 · CV</div></div>
+    <div class="pipe-step"><div class="ps-icon">✂️</div><div class="ps-label">Split</div><div class="ps-tag">80/20 · 70/30 · 50/50</div></div>
     <div class="pipe-arrow">›</div>
-    <div class="pipe-step"><div class="ps-icon">🤖</div><div class="ps-label">Train</div><div class="ps-tag">5 classifiers · 3 reg.</div></div>
+    <div class="pipe-step"><div class="ps-icon">🤖</div><div class="ps-label">Train</div><div class="ps-tag">6 classifiers · 3 reg.</div></div>
     <div class="pipe-arrow">›</div>
-    <div class="pipe-step"><div class="ps-icon">📈</div><div class="ps-label">Evaluate</div><div class="ps-tag">Acc · F1 · CM</div></div>
+    <div class="pipe-step"><div class="ps-icon">📈</div><div class="ps-label">Evaluate</div><div class="ps-tag">Gini · Permutation</div></div>
     <div class="pipe-arrow">›</div>
-    <div class="pipe-step"><div class="ps-icon">🚀</div><div class="ps-label">Deploy</div><div class="ps-tag">Gradio · APEX App</div></div>
+    <div class="pipe-step"><div class="ps-icon">🚀</div><div class="ps-label">Deploy</div><div class="ps-tag">APEX Dashboard</div></div>
+  </div>
+
+  <div class="section-header" style="margin-top:24px;">
+    <h2>Data Quality Audit</h2>
+    <span class="sh-tag">PHYSIOLOGICAL LAWS</span>
+    <div class="sh-line"></div>
+  </div>
+  <div class="dataset-audit-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px;">
+    <div class="audit-card" style="background:var(--panel); border:1px solid var(--border); padding:16px; border-radius:var(--radius2);">
+      <h4 style="color:var(--white); margin-bottom:8px; font-family:var(--font-head); font-size:14px;">⚖️ Blood Pressure Constraint</h4>
+      <p style="font-size:12px; color:var(--text2); line-height:1.4;">Enforced the <strong>Systolic > Diastolic</strong> physiological law. Measurements where resting pressure exceeded beating pressure were flagged as illogical and removed to ensure data integrity.</p>
+    </div>
+    <div class="audit-card" style="background:var(--panel); border:1px solid var(--border); padding:16px; border-radius:var(--radius2);">
+      <h4 style="color:var(--white); margin-bottom:8px; font-family:var(--font-head); font-size:14px;">🗂️ Duplicate Rectification</h4>
+      <p style="font-size:12px; color:var(--text2); line-height:1.4;">Identified and purged exact row duplicates. This prevents "Data Leakage" where the model might "memorize" identical participants across training and testing splits, artificially inflating accuracy.</p>
+    </div>
   </div>
 
   <div class="section-header" style="margin-top:24px;">
@@ -562,11 +578,11 @@
   <div class="report-executive">
     <div class="report-exec-badge">
       <div class="exec-badge-icon">📑</div>
-      <div class="exec-badge-label">02_Snipers_Team<br>Body Performance<br>Final Report</div>
+      <div class="exec-badge-label">03_Gharieb_Team<br>Body Performance<br>Final Analytics</div>
     </div>
     <div class="report-exec-body">
       <p class="exec-lead">
-        The <strong style="color:var(--teal)">Snipers Team</strong> from the Military Technical College presents the culmination of our AI &amp; Machine Learning final project: a comprehensive body performance intelligence system that classifies individuals into performance tiers (A–D) and predicts broad jump distance with near-perfect accuracy.
+        The <strong style="color:var(--teal)">Gharieb Team</strong> from the Military Technical College presents the definitive body performance intelligence system. Our methodology follows a recursive 5-stage pipeline—Data Cleaning, EDA, Multi-Split Modeling, Cross-Validation, and Production Deployment—to classify fitness tiers (A–D) with optimized precision.
       </p>
       <div class="exec-stats-row">
         <div class="exec-stat">
@@ -574,7 +590,7 @@
           <span class="exec-stat-label">Records Analyzed</span>
         </div>
         <div class="exec-stat">
-          <span class="exec-stat-val">5</span>
+          <span class="exec-stat-val">6</span>
           <span class="exec-stat-label">Classifiers Trained</span>
         </div>
         <div class="exec-stat">
@@ -582,12 +598,12 @@
           <span class="exec-stat-label">Regression Models</span>
         </div>
         <div class="exec-stat">
-          <span class="exec-stat-val" style="color:var(--teal)">75.1%</span>
+          <span class="exec-stat-val" style="color:var(--teal)">75.3%</span>
           <span class="exec-stat-label">Best Accuracy (RF)</span>
         </div>
       </div>
       <p class="exec-sub">
-        Our end-to-end pipeline covers data cleaning, exploratory analysis, feature engineering, model training and hyperparameter tuning, evaluation, and deployment — resulting in a production-ready web application backed by a FastAPI inference server.
+        Through rigorous statistical auditing (Physiological BP Laws, IQR Outlier Capping, and Permutation Importance analysis), we have engineered a robust engine that captures the non-linear relationship between physical metrics and athletic performance grades.
       </p>
     </div>
   </div>
@@ -602,31 +618,31 @@
   <div class="report-insights-grid">
     <div class="report-insight-card" style="border-top:3px solid var(--teal)">
       <div class="insight-rank">#1</div>
-      <div class="insight-icon">🧘</div>
-      <h3>Flexibility (Sit & Bend)</h3>
-      <div class="insight-importance">Importance: <strong style="color:var(--teal)">0.261</strong></div>
-      <p>The single most influential feature in determining performance class. Individuals with higher flexibility scores are disproportionately represented in Class A, confirming that mobility is a cornerstone of overall fitness.</p>
+      <div class="insight-icon">⚖️</div>
+      <h3>Body Composition Dominance</h3>
+      <div class="insight-importance">Predictor: <strong style="color:var(--teal)">FAT %</strong></div>
+      <p>Body fat percentage is the primary driver of performance classification. Individuals in Class 'A' consistently exhibit significantly lower fat levels, making it the most reliable physiological metric for predicting peak fitness grades.</p>
     </div>
     <div class="report-insight-card" style="border-top:3px solid var(--blue)">
       <div class="insight-rank">#2</div>
-      <div class="insight-icon">💪</div>
-      <h3>Core Endurance (Sit-ups)</h3>
-      <div class="insight-importance">Importance: <strong style="color:var(--blue)">0.141</strong></div>
-      <p>Sit-up count emerged as the second-most predictive feature. A strong core correlates with higher class placement and better broad jump performance, underscoring the role of muscular endurance in athletic classification.</p>
+      <div class="insight-icon">⚡</div>
+      <h3>Strength-Agility Synergy</h3>
+      <div class="insight-importance">Indicators: <strong style="color:var(--blue)">JUMP / GRIP</strong></div>
+      <p>Our analytics confirm that broad jump distance, sit-ups, and grip force move in near-perfect lockstep. High scores in one usually signal high scores in others, representing a unified explosive power-endurance coefficient.</p>
     </div>
     <div class="report-insight-card" style="border-top:3px solid var(--gold)">
       <div class="insight-rank">#3</div>
-      <div class="insight-icon">⚖️</div>
-      <h3>Body Composition (BMI &amp; Fat %)</h3>
-      <div class="insight-importance">Importance: <strong style="color:var(--gold)">0.119</strong></div>
-      <p>Body fat percentage is the strongest negative predictor. Lower body fat, combined with a healthy BMI, is a consistent marker of superior physical performance across all class boundaries in the dataset.</p>
+      <div class="insight-icon">👥</div>
+      <h3>Gender Threshold Scaling</h3>
+      <div class="insight-importance">Condition: <strong style="color:var(--gold)">M/F BALANCED</strong></div>
+      <p>Distributions across Classes A-D are exceptionally balanced between genders. This indicates that our grading criteria effectively scale according to biological sex standards, ensuring fair and accurate classification for all participants.</p>
     </div>
-    <div class="report-insight-card" style="border-top:3px solid var(--green)">
+    <div class="report-insight-card" style="border-top:30x solid var(--green)">
       <div class="insight-rank">#4</div>
-      <div class="insight-icon">🤝</div>
-      <h3>Grip Force</h3>
-      <div class="insight-importance">Importance: <strong style="color:var(--green)">0.081</strong></div>
-      <p>Grip strength serves as a powerful proxy for overall muscular strength. Our analysis reveals a significant correlation between grip force and broad jump distance, making it a reliable indicator of explosive power readiness.</p>
+      <div class="insight-icon">🩺</div>
+      <h3>Blood Pressure Indifference</h3>
+      <div class="insight-importance">Predictor: <strong style="color:var(--green)">LOW CORR.</strong></div>
+      <p>While vital for health monitoring, systolic and diastolic blood pressures showed minimal correlation with raw performance classes. This confirms that cardiovascular health is a background constant rather than a direct performance driver.</p>
     </div>
   </div>
 
@@ -641,12 +657,12 @@
     <div class="report-result-card champion">
       <div class="result-crown">🏆</div>
       <div class="result-model">Random Forest Classifier</div>
-      <div class="result-metric-big">75.1%</div>
+      <div class="result-metric-big">75.3%</div>
       <div class="result-metric-label">Classification Accuracy</div>
       <div class="result-details">
-        <div class="result-detail-row"><span>Precision</span><span style="color:var(--teal)">75.0%</span></div>
-        <div class="result-detail-row"><span>Recall</span><span style="color:var(--teal)">75.1%</span></div>
-        <div class="result-detail-row"><span>F1 Score</span><span style="color:var(--teal)">75.0%</span></div>
+        <div class="result-detail-row"><span>Precision</span><span style="color:var(--teal)">75.2%</span></div>
+        <div class="result-detail-row"><span>Recall</span><span style="color:var(--teal)">75.3%</span></div>
+        <div class="result-detail-row"><span>F1 Score</span><span style="color:var(--teal)">75.2%</span></div>
         <div class="result-detail-row"><span>Training Split</span><span>70 / 30</span></div>
         <div class="result-detail-row"><span>Cross-Validation</span><span>5-fold</span></div>
       </div>
@@ -669,16 +685,42 @@
     <div class="report-result-card">
       <div class="result-crown">📐</div>
       <div class="result-model">Methodology</div>
-      <div class="result-metric-big" style="color:var(--gold);font-size:32px;">End-to-End</div>
-      <div class="result-metric-label">ML Pipeline</div>
+      <div class="result-metric-big" style="color:var(--gold);font-size:32px;">Gharieb 5S</div>
+      <div class="result-metric-label">Audit Pipeline</div>
       <div class="result-details">
-        <div class="result-detail-row"><span>Cleaning</span><span>Duplicates + BP Logic</span></div>
-        <div class="result-detail-row"><span>Encoding</span><span>Label + Standard Scaler</span></div>
-        <div class="result-detail-row"><span>Feature Selection</span><span>Gini + Permutation</span></div>
-        <div class="result-detail-row"><span>Evaluation</span><span>Acc, F1, CM, R²</span></div>
-        <div class="result-detail-row"><span>Deployment</span><span>FastAPI + APEX App</span></div>
+        <div class="result-detail-row"><span>1. Audit</span><span>BP logic + Duplicates</span></div>
+        <div class="result-detail-row"><span>2. EDA</span><span>Bivariate Correlation</span></div>
+        <div class="result-detail-row"><span>3. Prep</span><span>Standard Scaler + IQR</span></div>
+        <div class="result-detail-row"><span>4. Model</span><span>Grid Search + 5-Fold</span></div>
+        <div class="result-detail-row"><span>5. Deploy</span><span>Interactive Dashboard</span></div>
       </div>
-      <div class="result-badge" style="background:rgba(240,165,0,0.12);color:var(--gold);">PIPELINE</div>
+      <div class="result-badge" style="background:rgba(240,165,0,0.12);color:var(--gold);">5-STAGE FLOW</div>
+    </div>
+  </div>
+
+  <!-- ── Strategic Roadmap ────────────────────────────────────────────────── -->
+  <div class="section-header" style="margin-top:32px;">
+    <h2>Strategic Roadmap</h2>
+    <span class="sh-tag">FUTURE WORK</span>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="report-roadmap-grid" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:15px; margin-bottom:32px;">
+    <div class="roadmap-card" style="background:var(--panel); border:1px solid var(--border); padding:16px; border-radius:var(--radius2); border-left:3px solid var(--teal);">
+      <h4 style="color:var(--white); font-size:13px; margin-bottom:6px;">Ensemble Stacking</h4>
+      <p style="font-size:11px; color:var(--text3); line-height:1.4;">Combine RF, SVM, and MLP into a single meta-model to minimize residual variance.</p>
+    </div>
+    <div class="roadmap-card" style="background:var(--panel); border:1px solid var(--border); padding:16px; border-radius:var(--radius2); border-left:3px solid var(--blue);">
+      <h4 style="color:var(--white); font-size:13px; margin-bottom:6px;">SHAP Integration</h4>
+      <p style="font-size:11px; color:var(--text3); line-height:1.4;">Implement Game Theory explainability to provide local reasons for every prediction.</p>
+    </div>
+    <div class="roadmap-card" style="background:var(--panel); border:1px solid var(--border); padding:16px; border-radius:var(--radius2); border-left:3px solid var(--gold);">
+      <h4 style="color:var(--white); font-size:13px; margin-bottom:6px;">Deep Regression</h4>
+      <p style="font-size:11px; color:var(--text3); line-height:1.4;">Utilize Keras/PyTorch ANN architectures to push Broad Jump R² beyond current thresholds.</p>
+    </div>
+    <div class="roadmap-card" style="background:var(--panel); border:1px solid var(--border); padding:16px; border-radius:var(--radius2); border-left:3px solid var(--green);">
+      <h4 style="color:var(--white); font-size:13px; margin-bottom:6px;">Grid Search Pro</h4>
+      <p style="font-size:11px; color:var(--text3); line-height:1.4;">Execute exhaustive hyperparameter optimization across all split ratios simultaneously.</p>
     </div>
   </div>
 
@@ -745,8 +787,8 @@
 <!-- ═══════════ PAGE: TEAM ═══════════ -->
 <section id="page-team" class="page" aria-label="Meet the Team">
   <div class="section-header">
-    <h2>Meet the Team</h2>
-    <span class="sh-tag">SNIPERS TEAM</span>
+    <h2>Gharieb Team</h2>
+    <span class="sh-tag">PROJECT MEMBERS</span>
     <div class="sh-line"></div>
   </div>
   
