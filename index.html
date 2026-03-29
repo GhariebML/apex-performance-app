@@ -20,13 +20,13 @@
   <link rel="stylesheet" href="css/base.css?v=2">
   <link rel="stylesheet" href="css/nav.css?v=2">
   <link rel="stylesheet" href="css/hero.css?v=2">
-  <link rel="stylesheet" href="css/forms.css?v=5">
-  <link rel="stylesheet" href="css/results.css?v=3">
+  <link rel="stylesheet" href="css/forms.css?v=6">
+  <link rel="stylesheet" href="css/results.css?v=4">
   <link rel="stylesheet" href="css/charts.css?v=2">
   <link rel="stylesheet" href="css/models.css?v=2">
   <link rel="stylesheet" href="css/dataset.css?v=2">
   <link rel="stylesheet" href="css/plan.css?v=2">
-  <link rel="stylesheet" href="css/report.css?v=1">
+  <link rel="stylesheet" href="css/report.css?v=3">
   <link rel="stylesheet" href="css/components.css?v=2">
   <link rel="stylesheet" href="css/team.css?v=2">
   <link rel="stylesheet" href="css/history.css?v=2">
@@ -590,7 +590,7 @@
   </div>
 
   <div class="report-artifacts-grid">
-    <a href="https://drive.google.com/drive/folders/14hkXj6p3HscAppMKv1W5yEzUKUcFjWzn?usp=sharing" target="_blank" class="report-artifact-btn" id="artifact-report">
+    <a href="javascript:void(0)" onclick="openArtifactModal('https://drive.google.com/file/d/1K2tyUU5i1x_uNB-AIwBqm8b46GBByjU3/preview')" class="report-artifact-btn" id="artifact-report">
       <div class="artifact-icon">📄</div>
       <div class="artifact-info">
         <div class="artifact-title">Final Report (PDF)</div>
@@ -598,7 +598,7 @@
       </div>
       <div class="artifact-arrow">↗</div>
     </a>
-    <a href="https://drive.google.com/drive/folders/14hkXj6p3HscAppMKv1W5yEzUKUcFjWzn?usp=sharing" target="_blank" class="report-artifact-btn" id="artifact-notebook">
+    <a href="javascript:void(0)" onclick="openArtifactModal('ML_Notebook.html')" class="report-artifact-btn" id="artifact-notebook">
       <div class="artifact-icon">📓</div>
       <div class="artifact-info">
         <div class="artifact-title">ML Notebook (ipynb)</div>
@@ -606,7 +606,7 @@
       </div>
       <div class="artifact-arrow">↗</div>
     </a>
-    <a href="https://drive.google.com/drive/folders/14hkXj6p3HscAppMKv1W5yEzUKUcFjWzn?usp=sharing" target="_blank" class="report-artifact-btn" id="artifact-presentation">
+    <a href="javascript:void(0)" onclick="openArtifactModal('https://docs.google.com/presentation/d/1CI4ZjaWT8ekv0lmHfJvqWNtLZqhiWaMc/preview')" class="report-artifact-btn" id="artifact-presentation">
       <div class="artifact-icon">📊</div>
       <div class="artifact-info">
         <div class="artifact-title">Presentation Slides (PPTX)</div>
@@ -614,7 +614,7 @@
       </div>
       <div class="artifact-arrow">↗</div>
     </a>
-    <a href="https://drive.google.com/drive/folders/14hkXj6p3HscAppMKv1W5yEzUKUcFjWzn?usp=sharing" target="_blank" class="report-artifact-btn" id="artifact-tasks">
+    <a href="javascript:void(0)" onclick="openArtifactModal('https://drive.google.com/file/d/1fROg7W6804ainPqkXGMAAvvs22wQQU6h/preview')" class="report-artifact-btn" id="artifact-tasks">
       <div class="artifact-icon">📋</div>
       <div class="artifact-info">
         <div class="artifact-title">Task Distribution Report</div>
@@ -622,7 +622,7 @@
       </div>
       <div class="artifact-arrow">↗</div>
     </a>
-    <a href="https://drive.google.com/drive/folders/14hkXj6p3HscAppMKv1W5yEzUKUcFjWzn?usp=sharing" target="_blank" class="report-artifact-btn" id="artifact-analytics">
+    <a href="javascript:void(0)" onclick="openArtifactModal('Analytics_Notebook.html')" class="report-artifact-btn" id="artifact-analytics">
       <div class="artifact-icon">🔬</div>
       <div class="artifact-info">
         <div class="artifact-title">Analytics &amp; Classification Notebook</div>
@@ -776,6 +776,22 @@
 
 <!-- Toast -->
 <div class="toast" id="toast"></div>
+
+<!-- Artifact Modal -->
+<div class="artifact-modal" id="artifact-modal">
+  <div class="artifact-dialog">
+    <div class="artifact-header">
+      <h3 id="artifact-modal-title">Artifact Preview</h3>
+      <div class="artifact-header-actions">
+        <button class="fullscreen-btn" id="fullscreen-btn" onclick="toggleArtifactFullscreen()" title="Toggle Fullscreen">⛶</button>
+        <button class="close-btn" onclick="closeArtifactModal()">×</button>
+      </div>
+    </div>
+    <div class="artifact-body">
+      <iframe id="artifact-iframe" allow="autoplay" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
 
 <!-- Scripts (order matters) -->
 <script src="js/history.js"></script>

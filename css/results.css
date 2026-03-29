@@ -19,7 +19,7 @@
 }
 .result-card:hover {
   border-color: var(--border2);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
 }
 
 /* ── Class Result Card ───────────────────────────────────────────────────────── */
@@ -37,7 +37,7 @@
 .class-result-card.class-D { border-color: rgba(255,64,96,0.4); box-shadow: 0 0 20px rgba(255,64,96,0.08); }
 
 .class-result-header {
-  padding: 16px 18px 12px;
+  padding: 28px 36px 20px;
   border-bottom: 1px solid var(--border);
 }
 .class-result-header .label {
@@ -107,7 +107,7 @@
 }
 
 /* ── Probability Bars ────────────────────────────────────────────────────────── */
-.prob-section { padding: 14px 18px; }
+.prob-section { padding: 28px 36px; }
 .prob-section .prob-title {
   font-family: var(--font-mono);
   font-size: 10px;
@@ -166,10 +166,10 @@
   backdrop-filter: var(--glass-blur);
   border: 1px solid var(--border);
   border-radius: var(--radius2);
-  padding: 18px;
+  padding: 36px;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 22px;
   transition: all var(--trans);
 }
 .jump-card:hover {
@@ -246,7 +246,7 @@
   backdrop-filter: var(--glass-blur);
   border: 1px solid var(--border);
   border-radius: var(--radius2);
-  padding: 16px 18px;
+  padding: 36px;
   transition: border-color var(--trans);
 }
 .tips-card:hover { border-color: var(--border2); }
@@ -257,30 +257,30 @@
   font-weight: 700;
   letter-spacing: 1px;
   color: var(--white);
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .tip-item {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
-  padding: 10px 0;
+  gap: 16px;
+  padding: 18px 0;
   border-bottom: 1px solid var(--border);
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text2);
-  line-height: 1.65;
-  transition: background var(--trans);
+  line-height: 1.7;
+  transition: all var(--trans);
 }
 .tip-item:last-child { border-bottom: none; }
-.tip-item:hover { background: rgba(0,229,200,0.03); padding-left: 6px; }
+.tip-item:hover { background: rgba(0,229,200,0.03); padding-left: 12px; }
 .tip-icon {
   color: var(--teal);
   flex-shrink: 0;
-  margin-top: 1px;
-  font-size: 14px;
+  margin-top: 2px;
+  font-size: 16px;
 }
 
 /* ── Insight Animation ──────────────────────────────────────────────────── */

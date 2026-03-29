@@ -21,12 +21,12 @@
 .form-panel:hover { border-color: var(--border2); }
 
 .form-panel-header {
-  padding: 14px 20px;
+  padding: 18px 28px;
   background: var(--panel2);
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 .form-panel-header .icon {
   width: 32px; height: 32px;
@@ -51,19 +51,19 @@
 }
 
 .form-groups {
-  padding: 32px 28px;
+  padding: 40px 32px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   flex: 1;
-  gap: 28px;
+  gap: 32px;
   min-height: 0;
 }
 
 .form-group-row {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px;
+  gap: 28px;
 }
 
 /* ── Field Group Titles ──────────────────────────────────────────────────────── */
@@ -74,9 +74,9 @@
   letter-spacing: 2px;
   color: var(--text3);
   text-transform: uppercase;
-  padding: 0 0 10px;
+  padding: 0 0 12px;
   border-bottom: 1px solid var(--border);
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 .field-group-title span { color: var(--teal); }
 
@@ -84,7 +84,7 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 9px;
 }
 .field label {
   font-size: 11px;

@@ -105,3 +105,88 @@ function animateHeroStats() {
     requestAnimationFrame(tick);
   });
 }
+
+// ── Artifact Viewer Modal ───────────────────────────────────────────────────
+function openArtifactModal(url) {
+  const modal = document.getElementById('artifact-modal');
+  const iframe = document.getElementById('artifact-iframe');
+  
+  // Set the iframe source to the Google Drive preview link
+  iframe.src = url;
+  
+  // Display the modal
+  modal.classList.add('active');
+  
+  // Prevent page scrolling while modal is active
+  document.body.style.overflow = 'hidden';
+}
+
+function closeArtifactModal() {
+  const modal = document.getElementById('artifact-modal');
+  const iframe = document.getElementById('artifact-iframe');
+  
+  // Exit fullscreen if active
+  if (document.fullscreenElement) {
+    document.exitFullscreen();
+  }
+  modal.classList.remove('fullscreen');
+  
+  // Hide modal
+  modal.classList.remove('active');
+  
+  // Clear the iframe src to stop playback/loading and free memory
+  setTimeout(() => {
+    iframe.src = '';
+  }, 400); // wait for fade out animation
+  
+  // Restore page scrolling
+  document.body.style.overflow = '';
+}
+
+// ── Artifact Fullscreen Toggle ──────────────────────────────────────────────
+function toggleArtifactFullscreen() {
+  const modal = document.getElementById('artifact-modal');
+  const dialog = modal.querySelector('.artifact-dialog');
+  const btn = document.getElementById('fullscreen-btn');
+  
+  if (!document.fullscreenElement) {
+    // Enter fullscreen
+    dialog.requestFullscreen().then(() => {
+      modal.classList.add('fullscreen');
+      btn.textContent = '⛶';
+      btn.title = 'Exit Fullscreen';
+    }).catch(() => {
+      // Fallback: just maximize the dialog via CSS
+      modal.classList.add('fullscreen');
+      btn.textContent = '⛶';
+      btn.title = 'Exit Fullscreen';
+    });
+  } else {
+    // Exit fullscreen
+    document.exitFullscreen();
+    modal.classList.remove('fullscreen');
+    btn.textContent = '⛶';
+    btn.title = 'Toggle Fullscreen';
+  }
+}
+
+// Listen for fullscreen change to sync UI state
+document.addEventListener('fullscreenchange', () => {
+  const modal = document.getElementById('artifact-modal');
+  const btn = document.getElementById('fullscreen-btn');
+  if (!document.fullscreenElement && modal) {
+    modal.classList.remove('fullscreen');
+    if (btn) {
+      btn.textContent = '⛶';
+      btn.title = 'Toggle Fullscreen';
+    }
+  }
+});
+
+// Close the modal when clicking outside the dialog area
+document.addEventListener('click', function(event) {
+  const modal = document.getElementById('artifact-modal');
+  if (event.target === modal && modal.classList.contains('active')) {
+    closeArtifactModal();
+  }
+});
