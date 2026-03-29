@@ -248,3 +248,37 @@
   cursor: wait;
   opacity: 0.8;
 }
+
+/* ── Simulation Mode Badge ────────────────────────────────────────────────────── */
+.badge-sim {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 18px;
+  background: rgba(240,165,0,0.06);
+  border-bottom: 1px solid rgba(240,165,0,0.2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(240,165,0,0.8);
+  letter-spacing: 0.3px;
+}
+.badge-sim-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+  animation: simPulse 2s ease-in-out infinite;
+}
+@keyframes simPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.8); }
+}
+.badge-sim a {
+  margin-left: auto;
+  color: var(--teal);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: color var(--trans);
+}
+.badge-sim a:hover { color: var(--white); }

@@ -36,17 +36,19 @@ function computeClass(inputs) {
     jmp:    (jump - 143.6) / 37.1,
   };
 
-  // Fitness score (higher = better)
+  // Fitness score — weights = real permutation importance from notebook
   const fitness = (
-    0.261 * (-z.fat) +
-    0.254 * z.bend  +
-    0.239 * z.situ  +
-    0.135 * (-z.age)+
-    0.094 * z.jmp   +
-    0.081 * z.grip  +
-    0.071 * (-z.weight) +
-    0.065 * (z.gender === 0 ? 0.3 : -0.2) +
-    0.035 * z.height
+    0.258 * z.bend   +   // sit_and_bend_forward_cm  rank 1
+    0.231 * z.situ   +   // sit-ups counts            rank 2
+    0.132 * (-z.age) +   // age (neg: older = lower)  rank 3
+    0.071 * (-z.weight)+ // weight_kg (neg)           rank 4
+    0.058 * (-z.fat) +   // body_fat_% (neg)          rank 5
+    0.050 * z.grip   +   // gripForce                 rank 6
+    0.050 * (z.gender === 0 ? 0.2 : -0.2) + // gender rank 7
+    0.028 * z.jmp    +   // broad_jump_cm             rank 8
+    0.010 * z.height +   // height_cm                 rank 9
+    0.006 * (-z.syst)+   // systolic (neg corr)       rank 10
+   -0.002 * z.diast      // diastolic                 rank 11
   );
 
   // Convert fitness score to class probabilities

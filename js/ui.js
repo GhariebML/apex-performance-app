@@ -170,7 +170,7 @@ function generatePersonalizedInsights(inputs, cls, jumpEst) {
     flexibility: {
       icon: '🧘',
       title: 'Flexibility Development',
-      text: `Your sit-and-bend score of ${inputs.sit_and_bend_forward_cm} cm is ${inputs.sit_and_bend_forward_cm < 15 ? 'below the dataset median of 19.2 cm' : 'within an improvable range'}. As the single most influential predictor of performance class (importance: 0.261), dedicating 10–15 minutes daily to dynamic stretching and yoga-based flexibility drills can yield significant classification improvement.`
+      text: `Your sit-and-bend score of ${inputs.sit_and_bend_forward_cm} cm is ${inputs.sit_and_bend_forward_cm < 15 ? 'below the dataset median of 19.2 cm' : 'within an improvable range'}. As the single most influential predictor of performance class (permutation importance: 0.258), dedicating 10–15 minutes daily to dynamic stretching and yoga-based flexibility drills can yield significant classification improvement.`
     },
     core: {
       icon: '💪',
@@ -255,7 +255,7 @@ function generatePersonalizedInsights(inputs, cls, jumpEst) {
     icon: '🏋️',
     title: 'Broad Jump Performance Analysis',
     text: jumpGap > 0
-      ? `Your estimated broad jump of ${jumpEst} cm is ${jumpGap} cm below the next-tier benchmark of ~${targetJump} cm. The Random Forest regressor (R² ≈ 0.99) indicates that improvements in sit-ups, grip force, and body fat reduction have the strongest positive impact on jump distance prediction. A structured plyometric programme can help close this gap.`
+      ? `Your estimated broad jump of ${jumpEst} cm is ${jumpGap} cm below the next-tier benchmark of ~${targetJump} cm. The Random Forest regressor (R² = 0.7842, RMSE = 18.57 cm) indicates that improvements in sit-ups, grip force, and flexibility have the strongest positive impact on jump distance prediction. A structured plyometric programme can help close this gap.`
       : `Your estimated broad jump of ${jumpEst} cm meets or exceeds the benchmark for the next performance tier (~${targetJump} cm). This is an excellent indicator of explosive lower-body power. Continue to maintain this with regular jump-specific training and ensure adequate recovery between high-intensity sessions.`
   });
 

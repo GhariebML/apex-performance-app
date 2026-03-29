@@ -29,7 +29,7 @@
 
 .lb-row {
   display: grid;
-  grid-template-columns: 36px 1fr 80px 80px 80px 80px;
+  grid-template-columns: 36px 1fr 72px 72px 72px 72px 105px;
   gap: 8px;
   align-items: center;
   padding: 11px 18px;
@@ -89,6 +89,7 @@
 .lb-bar-fill.rf  { background: linear-gradient(90deg, var(--teal), #00b8a0); }
 .lb-bar-fill.nn  { background: linear-gradient(90deg, var(--blue), #2d7fd6); }
 .lb-bar-fill.svm { background: linear-gradient(90deg, var(--gold), #c8860a); }
+.lb-bar-fill.dt  { background: linear-gradient(90deg, var(--green), #009948); }
 .lb-bar-fill.lr  { background: linear-gradient(90deg, #a061f0, #7a40c8); }
 .lb-bar-fill.knn { background: linear-gradient(90deg, var(--red), #c82040); }
 
@@ -315,3 +316,305 @@
 .mpc-icon.con { color: var(--red); }
 .mpc-text { color: var(--text2); line-height: 1.4; }
 
+
+/* ── Split Analysis ─────────────────────────────────────────────────────────────────────── */
+.split-chart-card {
+  background: var(--panel);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.split-chart-card h3 {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--white);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.split-chart-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text3);
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+.split-chart-wrap {
+  position: relative;
+  height: 300px;
+  width: 100%;
+}
+.split-finding {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.sf-item {
+  padding: 10px 14px;
+  background: var(--bg3);
+  border-radius: 6px;
+  border-left: 3px solid var(--teal);
+  font-size: 12px;
+  color: var(--text2);
+}
+.sf-item strong {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 13px;
+  color: var(--white);
+  margin-bottom: 2px;
+}
+
+/* ── CV Results Table ────────────────────────────────────────────────────────────── */
+.cv-card {
+  background: var(--panel);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 24px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.cv-card h3 {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--white);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cv-card-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text3);
+  margin-bottom: 18px;
+  letter-spacing: 0.5px;
+}
+.cv-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.cv-table th {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel2);
+}
+.cv-table th:nth-child(3),
+.cv-table th:nth-child(4) { text-align: right; }
+.cv-row {
+  border-bottom: 1px solid var(--border);
+  transition: background var(--trans);
+}
+.cv-row:last-child { border-bottom: none; }
+.cv-row:hover { background: var(--bg3); }
+.cv-rank, .cv-model, .cv-mean, .cv-std, .cv-bar-cell {
+  padding: 11px 12px;
+  font-size: 13px;
+}
+.cv-rank { font-family: var(--font-mono); font-size: 12px; color: var(--text3); width: 40px; }
+.cv-model { font-family: var(--font-body); font-weight: 500; }
+.cv-mean {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--white);
+  text-align: right;
+  white-space: nowrap;
+}
+.cv-std {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text3);
+  text-align: right;
+  white-space: nowrap;
+}
+.cv-bar-cell { min-width: 140px; }
+.cv-bar-track {
+  height: 6px;
+  background: var(--bg3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.cv-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 1.2s cubic-bezier(0.34,1.2,0.64,1);
+  background: var(--teal);
+}
+.cv-insight {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: rgba(0,229,200,0.04);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--teal);
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.7;
+  font-family: var(--font-mono);
+}
+
+/* ── Confusion Matrix ──────────────────────────────────────────────────────────── */
+.cm-card {
+  background: var(--panel);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.cm-card h3 {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--white);
+  margin-bottom: 4px;
+  display: flex; align-items: center; gap: 10px;
+}
+.cm-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text3);
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+.cm-grid-wrap {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.cm-matrix {
+  flex: 0 0 auto;
+}
+.cm-matrix table {
+  border-collapse: collapse;
+}
+.cm-matrix th {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 8px 10px;
+  text-align: center;
+}
+.cm-matrix th.cm-corner { background: none; }
+.cm-matrix th.cm-pred-header {
+  color: var(--text3);
+  font-size: 9px;
+  border-bottom: 1px solid var(--border);
+}
+.cm-cell {
+  width: 70px;
+  height: 56px;
+  text-align: center;
+  vertical-align: middle;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 4px;
+  cursor: default;
+  position: relative;
+  transition: all 0.2s ease;
+}
+.cm-cell:hover {
+  transform: scale(1.08);
+  z-index: 2;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+  border-color: var(--white);
+}
+.cm-cell .cm-pct {
+  display: block;
+  font-size: 9px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.6);
+  margin-top: 2px;
+}
+.cm-cell.diag { border: 2px solid rgba(0,229,200,0.3); }
+
+.cm-sidebar {
+  flex: 1;
+  min-width: 240px;
+}
+.cm-insight-box {
+  padding: 14px 16px;
+  background: var(--bg3);
+  border-radius: 8px;
+  border-left: 3px solid var(--teal);
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+.cm-insight-box strong { color: var(--white); }
+.cm-insight-box.warn { border-left-color: var(--gold); }
+.cm-insight-box.good { border-left-color: var(--green); }
+
+.cm-f1-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 14px;
+}
+.cm-f1-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--bg3);
+  border-radius: 6px;
+}
+.cm-f1-cls {
+  width: 26px; height: 26px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head);
+  font-size: 13px; font-weight: 700;
+  color: var(--white);
+}
+.cm-f1-cls.A { background: rgba(0,229,200,0.2); }
+.cm-f1-cls.B { background: rgba(77,159,255,0.2); }
+.cm-f1-cls.C { background: rgba(240,165,0,0.2); }
+.cm-f1-cls.D { background: rgba(0,200,80,0.2); }
+.cm-f1-val {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--white);
+}
+.cm-f1-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.5px;
+}
+.cm-f1-bar {
+  flex: 1; height: 5px;
+  background: var(--bg3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.cm-f1-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 1s cubic-bezier(0.34,1.2,0.64,1);
+}

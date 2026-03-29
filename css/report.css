@@ -414,6 +414,32 @@
   transform: translate(3px, -3px);
 }
 
+/* ── Artifact Download Button ─────────────────────────────────────────────── */
+.artifact-dl-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  background: rgba(0,229,200,0.1);
+  border: 1px solid rgba(0,229,200,0.25);
+  border-radius: 20px;
+  color: var(--teal);
+  font-size: 11px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all var(--trans);
+  flex-shrink: 0;
+}
+.artifact-dl-btn:hover {
+  background: rgba(0,229,200,0.2);
+  border-color: var(--teal);
+  transform: translateY(-1px);
+  box-shadow: 0 0 12px rgba(0,229,200,0.15);
+}
+
 /* ── Animations ───────────────────────────────────────────────────────────── */
 @keyframes reportFadeIn {
   from {
