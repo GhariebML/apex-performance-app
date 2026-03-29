@@ -3,7 +3,7 @@
 > AI-powered fitness classification & broad jump prediction — Military Technical College, 2026
 
 [![Live App](https://img.shields.io/badge/Live%20App-APEX%20Dashboard-00e5c8?style=for-the-badge)](https://ghariebml.github.io/apex-performance-app)
-[![Colab](https://img.shields.io/badge/Google%20Colab-Open%20Notebook-F9AB00?style=for-the-badge&logo=googlecolab)](https://colab.research.google.com/drive/1UkXwF0ISOlMpIgq97MMc9BIdJjb8SmRN)
+[![Colab](https://img.shields.io/badge/Google%20Colab-Open%20Notebook-F9AB00?style=for-the-badge&logo=googlecolab)](https://drive.google.com/file/d/13jssUdICQhQ6--C2Y8-F38LCJAQjYp0z/view?usp=sharing)
 [![Dataset](https://img.shields.io/badge/Dataset-Kaggle-20BEFF?style=for-the-badge&logo=kaggle)](https://www.kaggle.com/datasets/kukuroo3/body-performance-data)
 
 ---
@@ -88,7 +88,7 @@ Data Audit → EDA → IQR Capping → 3-Split Training → Cross-Validation →
 
 Click the badge at the top of this README, or open:
 ```
-https://colab.research.google.com/drive/1UkXwF0ISOlMpIgq97MMc9BIdJjb8SmRN
+https://drive.google.com/file/d/13jssUdICQhQ6--C2Y8-F38LCJAQjYp0z/view?usp=sharing
 ```
 All dependencies are pre-installed in the Colab environment.
 
