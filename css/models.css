@@ -218,3 +218,100 @@
   grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
+
+/* ── Models Dashboard Cards ─────────────────────────────────────────────────── */
+.model-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.model-card {
+  background: var(--panel);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 24px;
+  transition: all var(--trans);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.model-card:hover {
+  border-color: rgba(255,255,255,0.15);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.model-card.rf { border-top: 3px solid var(--teal); }
+.model-card.nn { border-top: 3px solid var(--blue); }
+.model-card.svm { border-top: 3px solid var(--gold); }
+.model-card.lr { border-top: 3px solid #a061f0; }
+.model-card.dt { border-top: 3px solid var(--green); }
+.model-card.knn { border-top: 3px solid var(--red); }
+
+.model-card-head h3 {
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.model-card-overview {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.model-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  background: var(--bg3);
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.mm-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mm-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.mm-val {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.model-pros-cons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.mpc-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.mpc-icon.pro { color: var(--green); }
+.mpc-icon.con { color: var(--red); }
+.mpc-text { color: var(--text2); line-height: 1.4; }
+
