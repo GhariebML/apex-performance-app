@@ -26,4 +26,10 @@
   .about-grid { grid-template-columns: 1fr; }
   .dataset-stats { grid-template-columns: repeat(2, 1fr); }
   footer { flex-direction: column; gap: 6px; text-align: center; }
+  
+  /* Key mobile fixes */
+  .leaderboard-wrap { overflow-x: auto; }
+  .leaderboard { min-width: 600px; } /* allow horizontal scroll */
+  .hero-stats { grid-template-columns: 1fr 1fr; } /* 2-col on mobile */
+  .prediction-grid { grid-template-columns: 1fr; } /* stack on mobile */
 }
