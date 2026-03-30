@@ -78,12 +78,17 @@ async function runPredict() {
       document.getElementById('pct-' + c).textContent = pct + '%';
     });
 
+    // Dual Regression Estimate
+    const jumpEstRF = estimateBroadJump(inputs);
+    const jumpEstLR = estimateJumpLR(inputs);
+
     // Age & Gender Adjusted Benchmark
     let baseJump = 260 - (inputs.age - 20) * 1.5;
     if (inputs.gender === 'F') baseJump -= 45;
     const benchMsg = `Age/Gender Benchmark (A-tier): ~${Math.max(100, Math.round(baseJump))} cm`;
     
-    document.getElementById('jump-pred').innerHTML = jumpEst + ' <span class="unit">cm</span>';
+    document.getElementById('jump-pred').innerHTML = jumpEstRF + ' <span class="unit">cm</span>';
+    document.getElementById('jump-pred-lr').innerHTML = jumpEstLR + ' <span class="unit">cm</span>';
     document.getElementById('jump-bench').textContent = benchMsg;
 
     // Radar mapping for chart (requires original names)
@@ -98,7 +103,7 @@ async function runPredict() {
     drawRadar(radarInputs, cls);
 
     // ── Professional Personalized Insights Engine ──
-    const insights = generatePersonalizedInsights(inputs, cls, jumpEst);
+    const insights = generatePersonalizedInsights(inputs, cls, jumpEstRF);
     const tipsList = document.getElementById('tips-list');
     tipsList.innerHTML = '';
     insights.forEach((insight, i) => {
@@ -109,6 +114,9 @@ async function runPredict() {
       tipsList.appendChild(div);
     });
 
+    // ── Exercise Plan Engine ──
+    renderExercisePlan(cls);
+
     // Save to History (LocalStorage)
     if(typeof saveToHistory === 'function') {
       saveToHistory(inputs, cls, probs, jumpEst);
@@ -116,7 +124,7 @@ async function runPredict() {
 
     btn.innerHTML = '✓ ANALYSIS COMPLETE';
     btn.style.background = 'linear-gradient(135deg, var(--green), #009948)';
-    showToast('✓ Performance Class ' + cls + ' · ' + jumpEst + ' cm jump');
+    showToast('✓ Performance Class ' + cls + ' · ' + jumpEstRF + ' cm jump');
 
     setTimeout(() => {
       btn.innerHTML = '⚡ ANALYZE PERFORMANCE';
@@ -261,3 +269,192 @@ function generatePersonalizedInsights(inputs, cls, jumpEst) {
 
   return insights;
 }
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   APEX · Exercise Plan Engine
+   Renders a structured 5-section training plan based on performance class.
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+function renderExercisePlan(cls) {
+  const plan = getExercisePlanData(cls);
+  const card = document.getElementById('exercise-plan-card');
+  const tag = document.getElementById('plan-class-tag');
+
+  tag.textContent = cls;
+  tag.className = 'class-tag ' + cls;
+
+  document.querySelector('#plan-warmup .ps-content').innerHTML = `<ul>${plan.warmup.map(item => `<li>${item}</li>`).join('')}</ul>`;
+  document.querySelector('#plan-main .ps-content').innerHTML = `<ul>${plan.main.map(item => `<li>${item}</li>`).join('')}</ul>`;
+  document.querySelector('#plan-cooldown .ps-content').innerHTML = `<ul>${plan.cooldown.map(item => `<li>${item}</li>`).join('')}</ul>`;
+  document.querySelector('#plan-schedule .ps-content').innerHTML = plan.schedule;
+  document.querySelector('#plan-tip .ps-content').innerHTML = plan.tip;
+
+  card.style.display = 'block';
+}
+
+function getExercisePlanData(cls) {
+  const plans = {
+    A: {
+      warmup: [
+        "10 min Dynamic stretching (Leg swings, Arm circles)",
+        "5 min Light jogging with high knees",
+        "3 sets of 10 Burpees to activate CNS"
+      ],
+      main: [
+        "High-Intensity Interval Training (HIIT): 40s Work / 20s Rest",
+        "Plyometric Circuit: Box Jumps, Depth Jumps, Broad Jumps (4 sets)",
+        "Compound Lifts: Squats & Deadlifts @ 85% 1RM (5x5)",
+        "Core: Weighted Planks and Hanging Leg Raises"
+      ],
+      cooldown: [
+        "10 min Static stretching (Focus on Hip Flexors)",
+        "Foam rolling: Hamstrings and Quads",
+        "Diaphragmatic breathing (2 mins)"
+      ],
+      schedule: "<strong>Elite Periodisation:</strong> 5 days ON, 2 days OFF. Cycle intensity: 3 weeks Heavy, 1 week Deload.",
+      tip: "<strong>Peak Maintenance:</strong> Prioritize neuro-recovery. Since your broad jump is elite, focus on unilateral stability to prevent injuries."
+    },
+    B: {
+      warmup: [
+        "8 min Dynamic stretching (Focused on lower back & hips)",
+        "5 min Jump rope at moderate pace",
+        "2 sets of 15 air squats"
+      ],
+      main: [
+        "Functional Strength: Pull-ups, Push-ups, Dips (3 sets to failure)",
+        "Moderate Plyometrics: Tuck jumps and Lateral bounds",
+        "Endurance: 400m repeats x 5 (80% effort)",
+        "Core: Russian twists and Mountain climbers"
+      ],
+      cooldown: [
+        "8 min Full-body stretching",
+        "Active mobility: Cat-Cow and Pigeon stretch",
+        "Hydration: 500ml electrolyte mix"
+      ],
+      schedule: "<strong>Strength Focus:</strong> 4 days ON, 3 days OFF. Focus on sit-up volume and grip strength 2x per week.",
+      tip: "<strong>The Jump Gap:</strong> Your explosive power is high. Focus on flexibility (sit-and-bend) to unlock more range of motion for your jump."
+    },
+    C: {
+      warmup: [
+        "10 min Brisk walk or light jog",
+        "Joint rotations: Wrists, Ankles, Shoulders",
+        "Arm swings and torso twists"
+      ],
+      main: [
+        "Circuit Training: 3 rounds (20 reps each)",
+        "Bodyweight Squats, Lunges, Knee Push-ups",
+        "Sit-ups: 3 sets of 15 (Focus on form over speed)",
+        "Cardio: 20 min steady-state jogging (Zone 2)"
+      ],
+      cooldown: [
+        "10 min Static stretching (All major groups)",
+        "Seated forward fold (Hold 30s x 3)",
+        "Mindful meditation (3 mins)"
+      ],
+      schedule: "<strong>Consistency Rule:</strong> 3-4 days per week. Avoid skipping more than 2 days in a row.",
+      tip: "<strong>Metric Wins:</strong> The model highlights your grip force as a lever. Use farmer's carries twice a week to boost this predictor."
+    },
+    D: {
+      warmup: [
+        "10 min Very light walking",
+        "Dynamic mobility: Wall slides and shoulder rolls",
+        "Leg swings (Hold onto a chair for balance)"
+      ],
+      main: [
+        "Foundation Build: Seated leg extensions & curls",
+        "Assisted squats (using a bench or chair)",
+        "Wall push-ups: 3 sets of 10",
+        "Core: Deadbugs and Bird-dogs (3 sets of 8)"
+      ],
+      cooldown: [
+        "12 min Gentle stretching",
+        "Calf stretches and neck rolls",
+        "Hydration and post-workout protein"
+      ],
+      schedule: "<strong>Foundation Builder:</strong> 3 days ON, 4 days OFF (Recovery focus). Include daily 15-min mobility.",
+      tip: "<strong>Body Comp Focus:</strong> Nutrition is your highest impact lever. Focus on consistent movement and calorie tracking to improve your class classification."
+    }
+  };
+  return plans[cls];
+}
+
+/* ══════════════════════════════════════════════════════════════════════════════
+   APEX · Sub-tab & Modal Logic
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+function switchReportTab(tabId) {
+  // Update Buttons
+  document.querySelectorAll('.report-tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+    if (btn.getAttribute('onclick').includes(tabId)) btn.classList.add('active');
+  });
+
+  // Update Content
+  document.querySelectorAll('.report-content-pane').forEach(pane => {
+    pane.classList.remove('active');
+  });
+  const activePane = document.getElementById('report-' + tabId);
+  activePane.classList.add('active');
+
+  // Lazy Load Iframe
+  const iframe = activePane.querySelector('iframe');
+  if (iframe && !iframe.src) {
+    iframe.src = iframe.getAttribute('data-src');
+  }
+}
+
+function hideSkeleton(iframe) {
+  const loader = iframe.previousElementSibling;
+  if (loader && loader.classList.contains('skeleton-loader')) {
+    loader.style.opacity = '0';
+    setTimeout(() => loader.style.display = 'none', 300);
+  }
+}
+
+function expandViewer(frameId) {
+  const frame = document.getElementById(frameId);
+  if (frame.requestFullscreen) {
+    frame.requestFullscreen();
+  } else if (frame.webkitRequestFullscreen) { /* Safari */
+    frame.webkitRequestFullscreen();
+  } else if (frame.msRequestFullscreen) { /* IE11 */
+    frame.msRequestFullscreen();
+  }
+}
+
+// Model Modal logic
+let modalCharts = [];
+
+function openModelModal(modelId) {
+  const modal = document.getElementById('details-modal');
+  modal.style.display = 'flex';
+  setTimeout(() => modal.classList.add('open'), 10);
+
+  // Clear previous charts
+  modalCharts.forEach(c => c.destroy());
+  modalCharts = [];
+
+  // Data mapping can be in charts.js, we call a helper
+  if (typeof renderModalIntelligence === 'function') {
+    const charts = renderModalIntelligence(modelId);
+    modalCharts = charts;
+  }
+}
+
+function closeModelModal() {
+  const modal = document.getElementById('details-modal');
+  modal.classList.remove('open');
+  setTimeout(() => {
+    modal.style.display = 'none';
+    modalCharts.forEach(c => c.destroy());
+    modalCharts = [];
+  }, 400);
+}
+
+// Close on ESC or Backdrop
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModelModal();
+});
+document.getElementById('details-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('details-modal')) closeModelModal();
+});
