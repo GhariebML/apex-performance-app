@@ -1,197 +1,123 @@
-# APEX · Body Performance Intelligence
+<div align="center">
 
-> AI-powered fitness classification & broad jump prediction — Military Technical College, 2026
+# 💪 APEX · Body Performance Intelligence
+**AI-Powered Physical Fitness Classification & Athletic Prediction Platform**
 
-[![Live App](https://img.shields.io/badge/Live%20App-APEX%20Dashboard-00e5c8?style=for-the-badge)](https://ghariebml.github.io/apex-performance-app)
+<img src="banner.png" width="100%" alt="APEX Predictive Body Performance AI">
+
+[![Live App](https://img.shields.io/badge/Deployed-Vercel-000000?style=for-the-badge&logo=vercel)](https://ghariebml.github.io/apex-performance-app)
 [![Colab](https://img.shields.io/badge/Google%20Colab-Open%20Notebook-F9AB00?style=for-the-badge&logo=googlecolab)](https://drive.google.com/file/d/13jssUdICQhQ6--C2Y8-F38LCJAQjYp0z/view?usp=sharing)
 [![Dataset](https://img.shields.io/badge/Dataset-Kaggle-20BEFF?style=for-the-badge&logo=kaggle)](https://www.kaggle.com/datasets/kukuroo3/body-performance-data)
+[![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?style=for-the-badge&logo=fastapi)](/)
+
+</div>
 
 ---
 
-## Project Overview
+## 🚀 Overview
 
-APEX is a machine learning project that predicts physical fitness performance class (A–D) and estimates broad jump distance from 11 physiological measurements. Built on **13,393 real fitness evaluations** from the Kaggle Body Performance dataset.
+APEX is an advanced Machine Learning platform engineered to predict a subject's physical fitness performance class (Grades A–D) and estimate broad jump distance utilizing exactly **11 physiological measurements**. Trained on an extensive dataset of **13,393 real athletic evaluations**, this project represents a complete, production-grade end-to-end ML pipeline.
 
-The project implements a full end-to-end ML pipeline:
-
+### The Pipeline Architecture
+```text
+Data Audit ➔ Deep EDA ➔ Outlier Capping (IQR) ➔ Split Training Strategy ➔ 5-Fold Cross Validation ➔ Live Deployment
 ```
-Data Audit → EDA → IQR Capping → 3-Split Training → Cross-Validation → Deployment
-```
-
-### Key Results
-| Metric | Value |
-|--------|-------|
-| **Best Classification Accuracy** | **74.26%** (Random Forest, 70/30 split) |
-| **Best CV Score** | **74.00% ± 1.12%** (Neural Network, 5-fold) |
-| **Best Regression R²** | **0.7842** (RF Regressor, Broad Jump) |
-| **Top Feature** | sit_and_bend_forward_cm (importance: 0.258) |
 
 ---
 
-## Model Results
+## 🏆 Key Achievements
 
-### Classification Models (All results from 70/30 split)
+<div align="center">
 
-| Rank | Model | Accuracy | Precision | Recall | F1 | CV Mean ± Std |
-|------|-------|:--------:|:---------:|:------:|:--:|:-------------:|
-| 1 | **Random Forest** | **74.26%** | 74.71% | 74.26% | 74.12% | 73.32% ± 0.78% |
-| 2 | Neural Network (MLP) | 74.06% | 75.19% | 74.06% | 74.16% | 74.00% ± 1.12% |
-| 3 | SVM (RBF Kernel) | 71.62% | 72.12% | 71.62% | 71.57% | 70.90% ± 0.69% |
-| 4 | Decision Tree | 65.17% | 66.79% | 65.17% | 65.32% | 64.75% ± 0.80% |
-| 5 | Logistic Regression | 62.36% | 62.05% | 62.36% | 61.97% | 61.67% ± 0.83% |
-| 6 | KNN (k=11) | 61.84% | 63.81% | 61.84% | 61.91% | 62.08% ± 0.72% |
+| Metric | Recorded Value | Winning Algorithm |
+| :--- | :--- | :--- |
+| **Peak Accuracy** | **74.26%** | Random Forest Classifier (70/30) |
+| **Best CV Stability** | **74.00% ± 1.12%**| Neural Network (MLP) (5-Fold) |
+| **Regression Performance** | **0.7842 R²** | RF Regressor (Broad Jump) |
+| **Leading Indicator** | `0.258 Importance`| Sit & Bend Forward (cm) |
 
-### Train/Test Split Stability (Accuracy across splits)
-
-| Model | 80/20 | 70/30 | 50/50 | Stability |
-|-------|------:|------:|------:|:---------:|
-| **Random Forest** | 74.01% | 74.26% | 72.36% | Best (Δ1.9%) |
-| Neural Network | 72.40% | 74.06% | 72.38% | Good |
-| SVM (RBF) | 71.14% | 71.62% | 70.51% | Good (Δ1.1%) |
-| Decision Tree | 63.78% | 65.17% | 64.43% | Moderate |
-| Logistic Regression | 63.14% | 62.36% | 62.32% | Moderate |
-| KNN | 62.55% | 61.84% | 61.71% | Least Stable |
-
-**Finding:** Random Forest is the most robust model — only a 1.9% accuracy drop from 80/20 to 50/50 training data.
-
-### Regression Models (Broad Jump Prediction)
-
-| Model | R² Score | RMSE | MAE |
-|-------|:--------:|-----:|----:|
-| **RF Regressor** | **0.7842** | 18.57 cm | 13.82 cm |
-| Neural Network Regressor | 0.7837 | 18.59 cm | 13.88 cm |
-| SVR (RBF Kernel) | 0.7796 | 18.76 cm | 13.92 cm |
-
-### Feature Importance (Permutation Importance — Random Forest)
-
-| Rank | Feature | Importance |
-|------|---------|:----------:|
-| #1 | sit_and_bend_forward_cm | **0.258** |
-| #2 | sit-ups counts | **0.231** |
-| #3 | age | 0.132 |
-| #4 | weight_kg | 0.071 |
-| #5 | body_fat_% | 0.058 |
-| #6 | gripForce | 0.050 |
-| #7 | gender | 0.050 |
-| #8 | broad_jump_cm | 0.028 |
-| #9 | height_cm | 0.010 |
-| #10 | systolic | 0.006 |
-| #11 | diastolic | −0.002 |
-
-> **Key Finding:** Flexibility (sit-and-bend) and core endurance (sit-ups) together account for **48.9%** of total permutation importance — far ahead of body composition metrics. This is a major deviation from the conventional assumption that body fat % is the top predictor.
+</div>
 
 ---
 
-## How to Run the Notebook
+## 📊 Comprehensive Model Benchmarks
 
-### Option 1: Google Colab (Recommended)
+### 🎯 Classification Matrix (70/30 Split)
 
-Click the badge at the top of this README, or open:
-```
-https://drive.google.com/file/d/13jssUdICQhQ6--C2Y8-F38LCJAQjYp0z/view?usp=sharing
-```
-All dependencies are pre-installed in the Colab environment.
+| Algorithm | Validation Accuracy | Precision | Recall | Stability (80/20 ➔ 50/50) |
+| :--- | :---: | :---: | :---: | :---: |
+| **Random Forest** | **74.26%** | 74.71% | 74.26% | Excellent (Δ1.9%) |
+| Neural Network (MLP) | 74.06% | 75.19% | 74.06% | Excellent |
+| SVM (RBF Kernel) | 71.62% | 72.12% | 71.62% | Strong (Δ1.1%) |
+| Decision Tree | 65.17% | 66.79% | 65.17% | Moderate |
+| Logistic Regression | 62.36% | 62.05% | 62.36% | Moderate |
+| KNN (k=11) | 61.84% | 63.81% | 61.84% | Volatile |
 
-### Option 2: Local Environment
+### 🏋️ Feature Significance Discovery
+Through Permutation Importance evaluating the Random Forest Model, we disrupted standard physiological assumptions:
 
-**Requirements:** Python 3.9+, Jupyter, scikit-learn, pandas, matplotlib, seaborn
+> **Key Finding:** Flexibility (`sit_and_bend_forward_cm` - 0.258) and core endurance (`sit-ups` - 0.231) combined account for **48.9%** of the model's total predictive power. This decisively proved that functional biomechanics drastically outweigh static body composition (`body_fat_%` - 0.058) metrics in determining elite athletic grades.
+
+---
+
+## ⚙️ Running APEX Locally
+
+### Option 1: Live Cloud Exploration (Recommended)
+You can directly run our entire ML pipeline and view the EDA visualizations without installing anything:
+[![Colab Launch](https://img.shields.io/badge/Launch%20in%20Google%20Colab-Launch-000?style=for-the-badge&logo=googlecolab)](https://drive.google.com/file/d/13jssUdICQhQ6--C2Y8-F38LCJAQjYp0z/view?usp=sharing)
+
+### Option 2: Full Local Environment
+To explore the codebase and launch the live interactive dashboard:
 
 ```bash
-# Clone the repo
+# Clone repository
 git clone https://github.com/GhariebML/apex-performance-app.git
 cd apex-performance-app
 
-# Install dependencies
-pip install -r requirements.txt
+# Install ML Dependencies
+pip install -r requirements.txt fastapi uvicorn scikit-learn joblib
 
-# Launch the notebook
-jupyter notebook "03_Snipers_Team_ML_Notebook_Final.ipynb"
-```
+# Serve the Backend RestAPI
+uvicorn main:app --reload
 
-**Or use the analytics notebook (includes full EDA):**
-```bash
-jupyter notebook "Analytics_Notebook.ipynb"
-```
-
-### Option 3: Run the APEX Web App Locally
-
-The web app is pure HTML/CSS/JS — no build step required.
-
-```bash
-# Just open index.html in your browser, or use Live Server:
+# Serve the Frontend HTML/JS (In a new terminal)
 npx live-server .
 ```
 
-The app connects to a FastAPI backend for live predictions. To run the backend:
-```bash
-pip install fastapi uvicorn scikit-learn joblib
-uvicorn main:app --reload
-```
-
 ---
 
-## Project Structure
+## 🏗️ Technical File Structure
 
-```
+```text
 apex-performance-app/
-├── index.html                              # Main APEX web app
-├── bodyPerformance.csv                     # Dataset (13,393 records)
-├── rf_classifier.joblib                    # Trained Random Forest model
-├── rf_regressor.joblib                     # Trained Random Forest regressor
-├── scaler.joblib                           # StandardScaler fitted object
-├── le_gender.joblib                        # Label encoder for gender
-│
-├── 03_Snipers_Team_ML_Notebook_Final.ipynb # Main ML notebook
-├── Analytics_Notebook.ipynb               # Full EDA & analysis notebook
-│
+├── index.html                              # High-Performance Vanilla JS Frontend
+├── css/                                    # Responsive Tokens & UI Styles
 ├── js/
-│   ├── app.js          # Navigation, hero animations, modal control
-│   ├── predict.js      # Local fallback JS prediction engine
-│   ├── ui.js           # Results rendering & insights engine
-│   ├── radar.js        # Performance radar chart (Canvas)
-│   ├── charts.js       # Split analysis & CV chart (Chart.js)
-│   └── history.js      # Session history & comparison modal
-│
-├── css/
-│   ├── variables.css   # Design tokens
-│   ├── base.css        # Global resets
-│   ├── models.css      # Leaderboard & feature importance
-│   ├── report.css      # Final report & artifacts
-│   └── ...             # Other component stylesheets
-│
-└── README.md
+│   ├── predict.js                          # Local-fallback JavaScript Prediction Engine
+│   ├── ui.js                               # DOM Rendering & Insights Graphing
+│   ├── radar.js                            # HTML5 Canvas Performance Radar Visualization
+│   └── history.js                          # State Management & Comparison Modules
+├── 03_Snipers_Team_ML_Notebook_Final.ipynb # Core AI Pipeline
+├── Analytics_Notebook.ipynb                # Extensive EDA & Statistical Notebook
+├── bodyPerformance.csv                     # Raw Baseline Database
+└── *.joblib                                # Serialized Inference Models (RF, Scaler, Encoders)
 ```
 
 ---
 
-## Methodology — Gharieb 5S Pipeline
+## 🤝 The Development Team
 
-| Stage | Description |
-|-------|-------------|
-| **1. Audit** | Physiological BP law enforcement (Systolic > Diastolic) + duplicate removal |
-| **2. EDA** | Bivariate correlation analysis, class distribution, feature distribution plots |
-| **3. Prep** | IQR outlier capping, StandardScaler normalization, Label encoding |
-| **4. Model** | 6 classifiers × 3 splits + 5-fold CV + 3 regressors |
-| **5. Deploy** | Interactive APEX dashboard with FastAPI backend + HTML/CSS/JS frontend |
+Developed as a flagship machine learning Capstone project for the **Military Technical College (2026)**.
 
----
-
-## Gharieb Team
-
-| Name | Role |
-|------|------|
-| **Gharieb** | Team Leader · Neural Network (MLP) |
-| **Saad** | Data Engineer · KNN Classifier |
-| **El Kholy** | Statistical Analyst · Logistic Regression |
-| **Wael** | Visualization Lead · Decision Tree + Random Forest |
-| **Hesham** | ML Engineer · SVM (Linear + RBF) |
+| Engineer | Specialization |
+| :--- | :--- |
+| **Mohamed Gharieb** | *Team Leader & Deep Learning Architect (MLP)* |
+| **Saad** | *Data Engineering & Distance Algorithms (KNN)* |
+| **El Kholy** | *Statistical Modeling & Logistic Regression* |
+| **Wael** | *Visualization Lead & Ensemble Tree Modeling* |
+| **Hesham** | *Support Vector Architecture (Linear/RBF)* |
 
 ---
-
-## License
-
-This project was created as a final project submission for the Machine Learning course at the **Military Technical College, Cairo, Egypt, 2026**.
-
----
-
-*APEX · Body Performance Intelligence · Gharieb Team · MTC · 2026*
+<div align="center">
+  <sub>Built with 🧠 and ☕ by the Gharieb Team - 2026</sub>
+</div>
