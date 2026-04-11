@@ -272,15 +272,36 @@
         <canvas id="radarCanvas" width="340" height="270"></canvas>
       </div>
 
-      <!-- Tips -->
+    </div>
+  </div>
+
+  <!-- ═══ FULL-WIDTH: INSIGHTS + PLAN (below predict layout) ═══ -->
+  <div class="insights-plan-section" id="insights-plan-section" style="display:none;">
+
+    <!-- Divider -->
+    <div class="ip-divider">
+      <div class="ip-divider-line"></div>
+      <span class="ip-divider-label">⚡ Analysis Results</span>
+      <div class="ip-divider-line"></div>
+    </div>
+
+    <div class="ip-grid">
+
+      <!-- LEFT: Personalized Insights -->
       <div class="tips-card" id="tips-card">
-        <h4><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px; vertical-align:text-bottom; color:var(--gold)"><path d="M12 4v2"></path><path d="M12 18v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg> Personalized Insights</h4>
+        <div class="tips-card-header">
+          <div class="tips-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v2"></path><path d="M12 18v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+          </div>
+          <h4>Personalized Insights</h4>
+          <span class="tips-card-badge">AI-Generated</span>
+        </div>
         <div id="tips-list">
           <div class="tip-item"><span class="tip-icon">›</span><span>Complete analysis to receive personalized insights.</span></div>
         </div>
       </div>
 
-      <!-- Exercise Plan Card -->
+      <!-- RIGHT: Structured Training Strategy -->
       <div class="exercise-plan-card" id="exercise-plan-card" style="display:none;">
         <div class="plan-header">
           <div class="plan-title-area">
@@ -292,7 +313,6 @@
             PDF
           </button>
         </div>
-        
         <div class="plan-grid">
           <div class="plan-section" id="plan-warmup">
             <div class="ps-head"><span>01</span> WARM-UP</div>
@@ -315,7 +335,6 @@
             <div class="ps-content"></div>
           </div>
         </div>
-
         <div class="plan-footer">
           Generated for Class <span id="plan-class-tag" class="class-tag">A</span> Profile · © APEX Intelligence 2026
         </div>
@@ -323,6 +342,7 @@
 
     </div>
   </div>
+
 </section>
 
 <!-- ═══════════ PAGE: MODELS ═══════════ -->

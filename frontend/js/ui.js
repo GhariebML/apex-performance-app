@@ -117,6 +117,10 @@ async function runPredict() {
     // ── Exercise Plan Engine ──
     renderExercisePlan(cls);
 
+    // ── Show the full-width insights + plan section ──
+    const ipSection = document.getElementById('insights-plan-section');
+    if (ipSection) ipSection.style.display = 'block';
+
     // Save to History (LocalStorage)
     if(typeof saveToHistory === 'function') {
       saveToHistory(inputs, cls, probs, jumpEstRF);
