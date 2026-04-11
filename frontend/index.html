@@ -49,7 +49,6 @@
     <button class="nav-tab" id="tab-models" onclick="showPage('models',this)"><svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="3" x2="9" y2="21"></line></svg> Models Dashboard</button>
     <button class="nav-tab" id="tab-about" onclick="showPage('about',this)"><svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg> Dataset</button>
     <button class="nav-tab" id="tab-report" onclick="showPage('report',this)"><svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg> Final Report</button>
-    <button class="nav-tab" id="tab-team" onclick="showPage('team',this)"><svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg> Team</button>
     <button class="nav-tab" id="tab-history" onclick="openHistoryModal()" style="border-color:var(--gold);color:var(--gold)"><svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg> History</button>
     <a href="https://drive.google.com/file/d/13jssUdICQhQ6--C2Y8-F38LCJAQjYp0z/view?usp=sharing" target="_blank" class="nav-tab" id="tab-colab" style="text-decoration:none; color:var(--teal); border-color:var(--teal);"><svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> Live Colab</a>
     <a href="https://github.com/GhariebML/apex-performance-app" target="_blank" class="nav-tab" id="tab-github" style="text-decoration:none; color:#e8e8e8; border-color:#555;"><svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg> GitHub</a>
@@ -1196,93 +1195,6 @@
     </div>
   </div>
 
-</section>
-
-<!-- ═══════════ PAGE: TEAM ═══════════ -->
-<section id="page-team" class="page" aria-label="Meet the Team">
-  <div class="section-header">
-    <h2>Gharieb Team</h2>
-    <span class="sh-tag">Project Members</span>
-    <div class="sh-line"></div>
-  </div>
-  
-  <div class="team-intro">
-    <p>Behind <strong>APEX Body Performance Intelligence</strong> is the dedicated <em>Gharieb Team</em> from the Military Technical College. We combined advanced machine learning and modern web technologies to bring this intelligence platform to life.</p>
-  </div>
-
-  <div class="team-grid">
-    
-    <!-- Leader -->
-    <article class="team-card" style="border-top:3px solid var(--gold)">
-      <div class="team-avatar">
-        <div class="placeholder-avatar"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
-      </div>
-      <h3 class="team-name">Gharieb</h3>
-      <div class="team-role" style="color:var(--gold)">Team Leader · Neural Network (MLP)</div>
-      <p class="team-desc">Lead the overall project architecture, code integration across all sections, evaluation benchmarking, and built the Neural Network pipeline.</p>
-      <div class="team-social">
-        <a href="#" class="social-link" title="LinkedIn">in</a>
-        <a href="#" class="social-link" title="GitHub">gh</a>
-      </div>
-    </article>
-
-    <!-- Team Member 1 -->
-    <article class="team-card">
-      <div class="team-avatar">
-        <div class="placeholder-avatar"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg></div>
-      </div>
-      <h3 class="team-name">Saad</h3>
-      <div class="team-role">Data Engineer · KNN Classifier</div>
-      <p class="team-desc">Responsible for initial dataset loading, exploratory analysis, handling missing values, duplicate removal, and developing the KNN model.</p>
-      <div class="team-social">
-        <a href="#" class="social-link" title="LinkedIn">in</a>
-        <a href="#" class="social-link" title="GitHub">gh</a>
-      </div>
-    </article>
-
-    <!-- Team Member 2 -->
-    <article class="team-card">
-      <div class="team-avatar">
-        <div class="placeholder-avatar"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31"></path><path d="M14 9.3V1.99"></path><path d="M8.5 2h7"></path><path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path><path d="M5.52 16h12.96"></path></svg></div>
-      </div>
-      <h3 class="team-name">El Kholy</h3>
-      <div class="team-role">Statistical Analyst · Logistic Regression</div>
-      <p class="team-desc">Conducted deep data quality assessments, statistical evaluation, outlier detection, and trained and tuned the Logistic Regression model.</p>
-      <div class="team-social">
-        <a href="#" class="social-link" title="LinkedIn">in</a>
-        <a href="#" class="social-link" title="GitHub">gh</a>
-      </div>
-    </article>
-
-    <!-- Team Member 3 -->
-    <article class="team-card">
-      <div class="team-avatar">
-        <div class="placeholder-avatar"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg></div>
-      </div>
-      <h3 class="team-name">Wael</h3>
-      <div class="team-role">Visualization Lead · Decision Tree + Random Forest</div>
-      <p class="team-desc">Created all exploratory data visualizations, distribution plots, correlation heatmaps, and authored the Decision Tree and Random Forest models.</p>
-      <div class="team-social">
-        <a href="#" class="social-link" title="LinkedIn">in</a>
-        <a href="#" class="social-link" title="GitHub">gh</a>
-      </div>
-    </article>
-
-    <!-- Team Member 4 -->
-    <article class="team-card">
-      <div class="team-avatar">
-        <div class="placeholder-avatar"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg></div>
-      </div>
-      <h3 class="team-name">Hesham</h3>
-      <div class="team-role">ML Engineer · SVM (Linear + RBF)</div>
-      <p class="team-desc">Managed the cross-validation strategy, trained and optimized the Support Vector Machine (linear & RBF kernel) models, and handled hyperparameter tuning.</p>
-      <div class="team-social">
-        <a href="#" class="social-link" title="LinkedIn">in</a>
-        <a href="#" class="social-link" title="GitHub">gh</a>
-      </div>
-    </article>
-
-  </div>
 </section>
 
 </main>
