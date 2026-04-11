@@ -119,7 +119,7 @@ async function runPredict() {
 
     // Save to History (LocalStorage)
     if(typeof saveToHistory === 'function') {
-      saveToHistory(inputs, cls, probs, jumpEst);
+      saveToHistory(inputs, cls, probs, jumpEstRF);
     }
 
     btn.innerHTML = '✓ ANALYSIS COMPLETE';

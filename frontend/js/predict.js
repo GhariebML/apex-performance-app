@@ -76,7 +76,7 @@ function computeClass(inputs) {
 
 function estimateBroadJump(inputs) {
   // RF Approximation
-  const { height, weight, fat, grip, bend, situps, age, gender } = inputs;
+  const { height_cm: height, weight_kg: weight, body_fat_pct: fat, gripForce: grip, sit_and_bend_forward_cm: bend, sit_ups_counts: situps, age, gender } = inputs;
   const base = 143.6;
   const est = base
     + height  * 0.38
@@ -93,7 +93,7 @@ function estimateBroadJump(inputs) {
 
 function estimateJumpLR(inputs) {
   // Pure OLS Linear Regression Weights
-  const { height, weight, fat, grip, bend, situps, age, gender } = inputs;
+  const { height_cm: height, weight_kg: weight, body_fat_pct: fat, gripForce: grip, sit_and_bend_forward_cm: bend, sit_ups_counts: situps, age, gender } = inputs;
   const intercept = 145.2;
   const est = intercept
     + height * 0.35

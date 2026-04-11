@@ -136,17 +136,21 @@ function drawTrendGraph(h) {
 
   if (h.length < 2) return;
 
-  const jumps = h.map(r => r.jump);
+  // Filter out any entries where jump is null or NaN (from old buggy history)
+  const valid = h.filter(r => r.jump != null && !isNaN(r.jump));
+  if (valid.length < 2) return;
+
+  const jumps = valid.map(r => r.jump);
   const minJ = Math.min(...jumps) - 10;
   const maxJ = Math.max(...jumps) + 10;
   
-  const stepX = W / (h.length - 1);
+  const stepX = W / (valid.length - 1);
 
   ctx.beginPath();
   ctx.strokeStyle = '#00e5c8';
   ctx.lineWidth = 2;
   
-  h.forEach((r, i) => {
+  valid.forEach((r, i) => {
     const x = i * stepX;
     const y = H - ((r.jump - minJ) / (maxJ - minJ)) * (H - 20) - 10;
     if(i===0) ctx.moveTo(x,y);
@@ -155,7 +159,7 @@ function drawTrendGraph(h) {
   ctx.stroke();
 
   // Draw dots
-  h.forEach((r, i) => {
+  valid.forEach((r, i) => {
     const x = i * stepX;
     const y = H - ((r.jump - minJ) / (maxJ - minJ)) * (H - 20) - 10;
     ctx.beginPath();
